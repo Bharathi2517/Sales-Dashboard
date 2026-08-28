@@ -1,429 +1,1423 @@
 ```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gem's Gold Sales Dashboard</title>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>GEM'S GOLD SALES DASHBOARD</title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-* {
-    box-sizing: border-box;
+
+/* =========================
+   GLOBAL
+========================= */
+
+*{
+    box-sizing:border-box;
 }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f4f6f8;
-    color: #222;
+html,body{
+    margin:0;
+    padding:0;
+    width:100%;
+    min-height:100%;
 }
 
-.header {
-    background: #111827;
-    color: white;
-    padding: 22px 30px;
+body{
+
+    font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+    background:
+    linear-gradient(
+        135deg,
+        #667eea 0%,
+        #764ba2 35%,
+        #f093fb 70%,
+        #4facfe 100%
+    );
+
+    color:#172033;
+
 }
 
-.header h1 {
-    margin: 0;
-    font-size: 26px;
+
+/* =========================
+   MAIN
+========================= */
+
+.dashboard{
+
+    width:100%;
+
+    min-height:100vh;
+
 }
 
-.header p {
-    margin: 6px 0 0;
-    color: #cbd5e1;
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+
+    background:
+    linear-gradient(
+        90deg,
+        #111827,
+        #312e81,
+        #4c1d95
+    );
+
+    color:white;
+
+    padding:
+    12px 22px;
+
+    display:flex;
+
+    justify-content:
+    space-between;
+
+    align-items:center;
+
+    box-shadow:
+    0 3px 15px
+    rgba(0,0,0,.20);
+
 }
 
-.container {
-    max-width: 1400px;
-    margin: auto;
-    padding: 25px;
+
+.header-left h1{
+
+    margin:0;
+
+    font-size:22px;
+
+    letter-spacing:.5px;
+
 }
 
-.filters {
-    background: white;
-    padding: 18px;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 12px;
+
+.header-left p{
+
+    margin:3px 0 0;
+
+    font-size:10px;
+
+    color:#dbeafe;
+
 }
 
-.filters label {
-    font-size: 12px;
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
+
+.refresh{
+
+    border:none;
+
+    background:
+    linear-gradient(
+        135deg,
+        #fbbf24,
+        #f59e0b
+    );
+
+    color:#111827;
+
+    padding:
+    8px 14px;
+
+    border-radius:7px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
 }
 
-.filters select,
-.filters input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #d1d5db;
-    border-radius: 7px;
+
+/* =========================
+   CONTENT
+========================= */
+
+.container{
+
+    width:100%;
+
+    max-width:1500px;
+
+    margin:auto;
+
+    padding:12px;
+
 }
 
-button {
-    border: 0;
-    border-radius: 7px;
-    padding: 10px 15px;
-    cursor: pointer;
-    background: #111827;
-    color: white;
-    font-weight: bold;
+
+/* =========================
+   FILTERS
+========================= */
+
+.filters{
+
+    background:
+    rgba(255,255,255,.95);
+
+    border-radius:10px;
+
+    padding:9px;
+
+    display:grid;
+
+    grid-template-columns:
+    120px
+    120px
+    1fr
+    1fr
+    1.4fr
+    auto;
+
+    gap:7px;
+
+    box-shadow:
+    0 5px 20px
+    rgba(0,0,0,.12);
+
+    margin-bottom:9px;
+
 }
 
-button:hover {
-    opacity: .9;
+
+.filter label{
+
+    display:block;
+
+    font-size:9px;
+
+    font-weight:bold;
+
+    color:#64748b;
+
+    margin-bottom:3px;
+
 }
 
-.cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-    gap: 15px;
-    margin-bottom: 20px;
+
+.filter input,
+.filter select{
+
+    width:100%;
+
+    height:30px;
+
+    border:
+    1px solid #d1d5db;
+
+    border-radius:5px;
+
+    padding:
+    4px 7px;
+
+    font-size:11px;
+
+    background:white;
+
 }
 
-.card {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+
+.filter-buttons{
+
+    display:flex;
+
+    align-items:end;
+
+    gap:5px;
+
 }
 
-.card-title {
-    font-size: 13px;
-    color: #6b7280;
+
+.filter-buttons button{
+
+    height:30px;
+
+    border:none;
+
+    border-radius:5px;
+
+    padding:
+    0 10px;
+
+    font-size:10px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
 }
 
-.card-value {
-    font-size: 25px;
-    font-weight: bold;
-    margin-top: 8px;
+
+.apply{
+
+    background:#4f46e5;
+
+    color:white;
+
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-bottom: 20px;
+
+.reset{
+
+    background:#e5e7eb;
+
+    color:#111827;
+
 }
 
-.chart-box {
-    background: white;
-    border-radius: 12px;
-    padding: 20px;
-    min-height: 350px;
+
+/* =========================
+   KPI
+========================= */
+
+.cards{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(6,1fr);
+
+    gap:8px;
+
+    margin-bottom:9px;
+
 }
 
-.chart-box h3 {
-    margin-top: 0;
+
+.card{
+
+    background:
+    rgba(255,255,255,.96);
+
+    border-radius:9px;
+
+    padding:
+    10px 12px;
+
+    box-shadow:
+    0 4px 16px
+    rgba(0,0,0,.12);
+
+    position:relative;
+
+    overflow:hidden;
+
 }
 
-.table-box {
-    background: white;
-    border-radius: 12px;
-    padding: 20px;
-    overflow-x: auto;
+
+.card:before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+
+    width:100%;
+
+    height:3px;
+
+    background:
+    linear-gradient(
+        90deg,
+        #6366f1,
+        #ec4899,
+        #06b6d4
+    );
+
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
+
+.card-title{
+
+    font-size:9px;
+
+    color:#64748b;
+
+    font-weight:bold;
+
+    margin-bottom:4px;
+
 }
 
-th, td {
-    padding: 11px;
-    border-bottom: 1px solid #e5e7eb;
-    text-align: left;
-    font-size: 13px;
+
+.card-value{
+
+    font-size:19px;
+
+    font-weight:800;
+
+    color:#111827;
+
 }
 
-th {
-    background: #f9fafb;
+
+/* =========================
+   CHART GRID
+========================= */
+
+.charts-top{
+
+    display:grid;
+
+    grid-template-columns:
+    1.35fr
+    1fr
+    1fr;
+
+    gap:9px;
+
+    margin-bottom:9px;
+
 }
 
-.status-paid {
-    color: #15803d;
-    font-weight: bold;
+
+.chart-box{
+
+    background:
+    rgba(255,255,255,.97);
+
+    border-radius:10px;
+
+    padding:10px;
+
+    box-shadow:
+    0 4px 18px
+    rgba(0,0,0,.12);
+
+    height:245px;
+
 }
 
-.status-refunded {
-    color: #dc2626;
-    font-weight: bold;
+
+.chart-title{
+
+    font-size:12px;
+
+    font-weight:bold;
+
+    margin:
+    0 0 5px;
+
+    color:#1e293b;
+
 }
 
-.loading {
-    text-align: center;
-    padding: 40px;
+
+.chart-area{
+
+    height:210px;
+
+    position:relative;
+
 }
 
-.error {
-    background: #fee2e2;
-    color: #991b1b;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
+
+/* =========================
+   BOTTOM CHARTS
+========================= */
+
+.charts-bottom{
+
+    display:grid;
+
+    grid-template-columns:
+    1.2fr
+    1fr;
+
+    gap:9px;
+
+    margin-bottom:9px;
+
 }
 
-@media(max-width: 800px) {
-    .grid {
-        grid-template-columns: 1fr;
+
+.bottom-box{
+
+    background:
+    rgba(255,255,255,.97);
+
+    border-radius:10px;
+
+    padding:10px;
+
+    height:215px;
+
+    box-shadow:
+    0 4px 18px
+    rgba(0,0,0,.12);
+
+}
+
+
+.bottom-chart{
+
+    height:175px;
+
+    position:relative;
+
+}
+
+
+/* =========================
+   FINANCIAL
+========================= */
+
+.financial{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:7px;
+
+    height:175px;
+
+}
+
+
+.financial-card{
+
+    border-radius:9px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    background:
+    linear-gradient(
+        135deg,
+        #f8fafc,
+        #eef2ff
+    );
+
+}
+
+
+.financial-label{
+
+    font-size:9px;
+
+    color:#64748b;
+
+    font-weight:bold;
+
+}
+
+
+.financial-value{
+
+    font-size:23px;
+
+    font-weight:800;
+
+    margin-top:5px;
+
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.table-box{
+
+    background:
+    rgba(255,255,255,.97);
+
+    border-radius:10px;
+
+    padding:11px;
+
+    box-shadow:
+    0 4px 18px
+    rgba(0,0,0,.12);
+
+    overflow:auto;
+
+}
+
+
+.table-head{
+
+    display:flex;
+
+    justify-content:
+    space-between;
+
+    align-items:center;
+
+    margin-bottom:7px;
+
+}
+
+
+.table-head h3{
+
+    margin:0;
+
+    font-size:13px;
+
+}
+
+
+.row-count{
+
+    font-size:9px;
+
+    color:#64748b;
+
+}
+
+
+table{
+
+    width:100%;
+
+    border-collapse:
+    collapse;
+
+}
+
+
+th{
+
+    background:
+    linear-gradient(
+        90deg,
+        #eef2ff,
+        #fce7f3
+    );
+
+    color:#334155;
+
+    font-size:9px;
+
+    padding:7px;
+
+    text-align:left;
+
+    white-space:nowrap;
+
+}
+
+
+td{
+
+    font-size:9px;
+
+    padding:7px;
+
+    border-bottom:
+    1px solid #e5e7eb;
+
+    white-space:nowrap;
+
+}
+
+
+.status-paid{
+
+    color:#15803d;
+
+    font-weight:bold;
+
+}
+
+
+.status-refunded{
+
+    color:#dc2626;
+
+    font-weight:bold;
+
+}
+
+
+.status-other{
+
+    color:#ca8a04;
+
+    font-weight:bold;
+
+}
+
+
+/* =========================
+   ERROR
+========================= */
+
+.error{
+
+    background:#fee2e2;
+
+    color:#991b1b;
+
+    padding:9px;
+
+    border-radius:7px;
+
+    margin-bottom:9px;
+
+    font-size:11px;
+
+}
+
+
+.loading{
+
+    text-align:center;
+
+    padding:20px;
+
+    font-size:11px;
+
+    color:#64748b;
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:1100px){
+
+    .cards{
+
+        grid-template-columns:
+        repeat(3,1fr);
+
     }
+
+    .charts-top{
+
+        grid-template-columns:
+        1fr 1fr;
+
+    }
+
 }
+
+
+@media(max-width:700px){
+
+    .header{
+
+        padding:12px;
+
+    }
+
+    .header-left h1{
+
+        font-size:18px;
+
+    }
+
+    .filters{
+
+        grid-template-columns:
+        1fr 1fr;
+
+    }
+
+    .cards{
+
+        grid-template-columns:
+        1fr 1fr;
+
+    }
+
+    .charts-top,
+    .charts-bottom{
+
+        grid-template-columns:
+        1fr;
+
+    }
+
+}
+
 </style>
+
 </head>
+
 
 <body>
 
+
+<div class="dashboard">
+
+
+<!-- HEADER -->
+
 <div class="header">
-    <h1>GEM'S GOLD SALES DASHBOARD</h1>
-    <p>Live Sales & Order Analytics</p>
+
+    <div class="header-left">
+
+        <h1>
+            GEM'S GOLD SALES DASHBOARD
+        </h1>
+
+        <p>
+            Sales • Orders • Products • City • Financial Performance
+        </p>
+
+    </div>
+
+
+    <button
+        class="refresh"
+        onclick="loadData()">
+
+        ↻ Refresh
+
+    </button>
+
 </div>
+
 
 <div class="container">
 
+
 <div id="error"></div>
+
+
+<!-- FILTERS -->
 
 <div class="filters">
 
-    <div>
-        <label>From Date</label>
-        <input type="date" id="fromDate">
+
+    <div class="filter">
+
+        <label>FROM DATE</label>
+
+        <input
+            type="date"
+            id="fromDate">
+
     </div>
 
-    <div>
-        <label>To Date</label>
-        <input type="date" id="toDate">
+
+    <div class="filter">
+
+        <label>TO DATE</label>
+
+        <input
+            type="date"
+            id="toDate">
+
     </div>
 
-    <div>
-        <label>Platform</label>
+
+    <div class="filter">
+
+        <label>PLATFORM</label>
+
         <select id="platform">
-            <option value="">All Platforms</option>
+
+            <option value="">
+                All Platforms
+            </option>
+
         </select>
+
     </div>
 
-    <div>
-        <label>Brand</label>
+
+    <div class="filter">
+
+        <label>BRAND</label>
+
         <select id="brand">
-            <option value="">All Brands</option>
+
+            <option value="">
+                All Brands
+            </option>
+
         </select>
+
     </div>
 
-    <div>
-        <label>Product</label>
+
+    <div class="filter">
+
+        <label>PRODUCT</label>
+
         <select id="product">
-            <option value="">All Products</option>
+
+            <option value="">
+                All Products
+            </option>
+
         </select>
+
     </div>
 
-    <div style="display:flex;align-items:end;gap:8px;">
-        <button onclick="applyFilters()">Apply</button>
-        <button onclick="resetFilters()">Reset</button>
-        <button onclick="loadData()">↻ Refresh</button>
+
+    <div class="filter-buttons">
+
+        <button
+            class="apply"
+            onclick="applyFilters()">
+
+            APPLY
+
+        </button>
+
+
+        <button
+            class="reset"
+            onclick="resetFilters()">
+
+            RESET
+
+        </button>
+
     </div>
+
 
 </div>
+
+
+<!-- KPI CARDS -->
 
 <div class="cards">
 
-    <div class="card">
-        <div class="card-title">TOTAL SALES</div>
-        <div class="card-value" id="totalSales">₹0</div>
-    </div>
 
     <div class="card">
-        <div class="card-title">TOTAL ORDERS</div>
-        <div class="card-value" id="totalOrders">0</div>
+
+        <div class="card-title">
+            TOTAL SALES
+        </div>
+
+        <div
+            class="card-value"
+            id="totalSales">
+
+            ₹0
+
+        </div>
+
     </div>
 
-    <div class="card">
-        <div class="card-title">TOTAL QUANTITY</div>
-        <div class="card-value" id="totalQty">0</div>
-    </div>
 
     <div class="card">
-        <div class="card-title">REFUND AMOUNT</div>
-        <div class="card-value" id="refundAmount">₹0</div>
+
+        <div class="card-title">
+            TOTAL ORDERS
+        </div>
+
+        <div
+            class="card-value"
+            id="totalOrders">
+
+            0
+
+        </div>
+
     </div>
 
-    <div class="card">
-        <div class="card-title">NET SALES</div>
-        <div class="card-value" id="netSales">₹0</div>
-    </div>
 
     <div class="card">
-        <div class="card-title">AVERAGE ORDER VALUE</div>
-        <div class="card-value" id="avgOrder">₹0</div>
+
+        <div class="card-title">
+            TOTAL QTY
+        </div>
+
+        <div
+            class="card-value"
+            id="totalQty">
+
+            0
+
+        </div>
+
     </div>
+
+
+    <div class="card">
+
+        <div class="card-title">
+            REFUND
+        </div>
+
+        <div
+            class="card-value"
+            id="refundAmount">
+
+            ₹0
+
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="card-title">
+            NET SALES
+        </div>
+
+        <div
+            class="card-value"
+            id="netSales">
+
+            ₹0
+
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="card-title">
+            AVERAGE ORDER
+        </div>
+
+        <div
+            class="card-value"
+            id="avgOrder">
+
+            ₹0
+
+        </div>
+
+    </div>
+
 
 </div>
 
-<div class="grid">
+
+<!-- TOP CHARTS -->
+
+<div class="charts-top">
+
 
     <div class="chart-box">
-        <h3>Sales by Date</h3>
-        <canvas id="dateChart"></canvas>
+
+        <div class="chart-title">
+            📈 Sales Trend
+        </div>
+
+        <div class="chart-area">
+
+            <canvas id="dateChart"></canvas>
+
+        </div>
+
     </div>
 
-    <div class="chart-box">
-        <h3>Sales by Product</h3>
-        <canvas id="productChart"></canvas>
-    </div>
 
     <div class="chart-box">
-        <h3>Sales by Location</h3>
-        <canvas id="locationChart"></canvas>
+
+        <div class="chart-title">
+            🏆 Top Products
+        </div>
+
+        <div class="chart-area">
+
+            <canvas id="productChart"></canvas>
+
+        </div>
+
     </div>
 
+
     <div class="chart-box">
-        <h3>Financial Status</h3>
-        <canvas id="statusChart"></canvas>
+
+        <div class="chart-title">
+            🏙️ City-wise Sales
+        </div>
+
+        <div class="chart-area">
+
+            <canvas id="cityChart"></canvas>
+
+        </div>
+
     </div>
+
 
 </div>
+
+
+<!-- BOTTOM -->
+
+<div class="charts-bottom">
+
+
+    <div class="bottom-box">
+
+        <div class="chart-title">
+            🌐 Platform-wise Sales
+        </div>
+
+        <div class="bottom-chart">
+
+            <canvas id="platformChart"></canvas>
+
+        </div>
+
+    </div>
+
+
+    <div class="bottom-box">
+
+        <div class="chart-title">
+            💳 Financial Summary
+        </div>
+
+
+        <div class="financial">
+
+
+            <div class="financial-card">
+
+                <div class="financial-label">
+                    PAID ORDERS
+                </div>
+
+                <div
+                    class="financial-value"
+                    id="paidOrders">
+
+                    0
+
+                </div>
+
+            </div>
+
+
+            <div class="financial-card">
+
+                <div class="financial-label">
+                    REFUNDED ORDERS
+                </div>
+
+                <div
+                    class="financial-value"
+                    id="refundedOrders">
+
+                    0
+
+                </div>
+
+            </div>
+
+
+            <div class="financial-card">
+
+                <div class="financial-label">
+                    REFUND AMOUNT
+                </div>
+
+                <div
+                    class="financial-value"
+                    id="statusRefund">
+
+                    ₹0
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<!-- ORDER TABLE -->
 
 <div class="table-box">
 
-<h3>Order Details</h3>
 
-<table>
-<thead>
-<tr>
-<th>Order ID</th>
-<th>Date</th>
-<th>Location</th>
-<th>Platform</th>
-<th>Product</th>
-<th>Qty</th>
-<th>Value</th>
-<th>Status</th>
-<th>Refund</th>
-</tr>
-</thead>
+    <div class="table-head">
 
-<tbody id="orderTable"></tbody>
+        <h3>
+            📋 Recent Orders
+        </h3>
 
-</table>
+        <span
+            class="row-count"
+            id="rowCount">
+
+            0 rows
+
+        </span>
+
+    </div>
+
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>ORDER ID</th>
+
+                <th>DATE</th>
+
+                <th>CITY</th>
+
+                <th>PLATFORM</th>
+
+                <th>PRODUCT</th>
+
+                <th>QTY</th>
+
+                <th>VALUE</th>
+
+                <th>STATUS</th>
+
+                <th>REFUND</th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody id="orderTable"></tbody>
+
+    </table>
+
+
+</div>
+
 
 </div>
 
 </div>
+
 
 <script>
 
-/* YOUR GOOGLE SHEET CSV */
+
+/* =====================================================
+   GOOGLE SHEET
+===================================================== */
 
 const CSV_URL =
 "https://docs.google.com/spreadsheets/d/e/2PACX-1vS4QW5KFM7cbNC4lcPBrlNk-kcKQIKz5lg3gKTl48CZUyMR0n3PeU5nG7_WlYKmz2mnS6_d5JNnkQbz/pub?gid=0&single=true&output=csv";
 
-let allData = [];
-let filteredData = [];
 
-let charts = {};
+let allData=[];
+
+let filteredData=[];
+
+let charts={};
 
 
-/* CSV PARSER */
+/* =====================================================
+   CSV
+===================================================== */
 
-function parseCSV(text) {
+function parseCSV(text){
 
-    const rows = [];
-    let row = [];
-    let value = "";
-    let insideQuotes = false;
+    const rows=[];
 
-    for(let i=0;i<text.length;i++) {
+    let row=[];
 
-        const char = text[i];
-        const next = text[i+1];
+    let value="";
 
-        if(char === '"' && insideQuotes && next === '"') {
-            value += '"';
+    let quote=false;
+
+
+    for(let i=0;i<text.length;i++){
+
+        const c=text[i];
+
+        const next=text[i+1];
+
+
+        if(c==='"' && quote && next==='"'){
+
+            value+='"';
+
             i++;
+
         }
 
-        else if(char === '"') {
-            insideQuotes = !insideQuotes;
+        else if(c==='"'){
+
+            quote=!quote;
+
         }
 
-        else if(char === ',' && !insideQuotes) {
-            row.push(value);
-            value = "";
-        }
-
-        else if((char === '\n' || char === '\r') && !insideQuotes) {
-
-            if(char === '\r' && next === '\n') i++;
+        else if(c===',' && !quote){
 
             row.push(value);
 
-            if(row.some(x => x.trim() !== "")) {
-                rows.push(row);
+            value="";
+
+        }
+
+        else if(
+            (c==='\n'||c==='\r')
+            && !quote
+        ){
+
+            if(c==='\r' && next==='\n'){
+                i++;
             }
 
-            row = [];
-            value = "";
+            row.push(value);
+
+            if(
+                row.some(
+                    x=>x.trim()!==""
+                )
+            ){
+
+                rows.push(row);
+
+            }
+
+            row=[];
+
+            value="";
+
         }
 
-        else {
-            value += char;
+        else{
+
+            value+=c;
+
         }
+
     }
 
-    if(value || row.length) {
+
+    if(value || row.length){
+
         row.push(value);
+
         rows.push(row);
+
     }
+
 
     return rows;
+
 }
 
 
-/* LOAD DATA */
+/* =====================================================
+   LOAD
+===================================================== */
 
-async function loadData() {
+async function loadData(){
 
-    document.getElementById("error").innerHTML =
-        '<div class="loading">Loading data...</div>';
+    document.getElementById("error").innerHTML=
+    '<div class="loading">Loading sales data...</div>';
 
-    try {
 
-        const response = await fetch(CSV_URL + "&t=" + Date.now());
+    try{
 
-        if(!response.ok) {
-            throw new Error("Unable to load Google Sheet");
+        const response=
+        await fetch(
+            CSV_URL+"&t="+Date.now()
+        );
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "Unable to load data"
+            );
+
         }
 
-        const text = await response.text();
 
-        const rows = parseCSV(text);
+        const text=
+        await response.text();
 
-        if(rows.length < 2) {
-            throw new Error("No data found");
+
+        const rows=
+        parseCSV(text);
+
+
+        if(rows.length<2){
+
+            throw new Error(
+                "No data found"
+            );
+
         }
 
-        const headers = rows[0].map(h => h.trim());
 
-        allData = rows.slice(1).map(row => {
+        const headers=
+        rows[0].map(
+            h=>h.trim()
+        );
 
-            const obj = {};
 
-            headers.forEach((header,index) => {
-                obj[header] = (row[index] || "").trim();
-            });
+        allData=
+        rows
+        .slice(1)
+        .map(row=>{
+
+            const obj={};
+
+
+            headers.forEach(
+                (header,index)=>{
+
+                    obj[header]=
+                    (
+                        row[index] || ""
+                    ).trim();
+
+                }
+            );
+
 
             return obj;
 
-        }).filter(row => row["ORDER ID"]);
+        })
+        .filter(
+            row=>row["ORDER ID"]
+        );
 
-        filteredData = [...allData];
 
-        document.getElementById("error").innerHTML = "";
+        filteredData=
+        [...allData];
+
+
+        document.getElementById(
+            "error"
+        ).innerHTML="";
+
 
         populateFilters();
 
@@ -431,26 +1425,34 @@ async function loadData() {
 
     }
 
-    catch(error) {
+
+    catch(error){
 
         console.error(error);
 
-        document.getElementById("error").innerHTML =
-            `<div class="error">
-            Unable to load Google Sheet data.<br>
-            Please check that the Google Sheet is published to CSV.
-            </div>`;
+
+        document.getElementById(
+            "error"
+        ).innerHTML=
+
+        `<div class="error">
+        ❌ Unable to load Google Sheet data.
+        Please check your published CSV.
+        </div>`;
 
     }
 
 }
 
 
-/* NUMBER */
+/* =====================================================
+   NUMBER
+===================================================== */
 
-function number(value) {
+function number(value){
 
     if(!value) return 0;
+
 
     return parseFloat(
         String(value)
@@ -462,61 +1464,110 @@ function number(value) {
 }
 
 
-/* DATE */
+/* =====================================================
+   MONEY
+===================================================== */
 
-function dateValue(value) {
+function money(value){
+
+    return "₹"+
+    Math.round(value)
+    .toLocaleString("en-IN");
+
+}
+
+
+/* =====================================================
+   DATE
+===================================================== */
+
+function dateValue(value){
 
     if(!value) return null;
 
-    const date = new Date(value);
+
+    const date=
+    new Date(value);
+
 
     if(isNaN(date)) return null;
+
 
     return date;
 
 }
 
 
-/* UNIQUE VALUES */
+/* =====================================================
+   UNIQUE
+===================================================== */
 
-function unique(column) {
+function unique(column){
 
-    return [...new Set(
-        allData
-        .map(row => row[column])
-        .filter(Boolean)
-    )].sort();
-
-}
-
-
-/* FILTER OPTIONS */
-
-function populateFilters() {
-
-    fillSelect("platform", unique("PLATFORM"));
-    fillSelect("brand", unique("BRAND"));
-    fillSelect("product", unique("PRODUCT"));
+    return [
+        ...new Set(
+            allData
+            .map(
+                row=>row[column]
+            )
+            .filter(Boolean)
+        )
+    ].sort();
 
 }
 
 
-/* FILL SELECT */
+/* =====================================================
+   FILTER
+===================================================== */
 
-function fillSelect(id, values) {
+function populateFilters(){
 
-    const select = document.getElementById(id);
+    fillSelect(
+        "platform",
+        unique("PLATFORM")
+    );
 
-    const first = select.options[0].outerHTML;
 
-    select.innerHTML = first;
+    fillSelect(
+        "brand",
+        unique("BRAND")
+    );
 
-    values.forEach(value => {
 
-        const option = document.createElement("option");
+    fillSelect(
+        "product",
+        unique("PRODUCT")
+    );
 
-        option.value = value;
-        option.textContent = value;
+}
+
+
+function fillSelect(id,values){
+
+    const select=
+    document.getElementById(id);
+
+
+    const first=
+    select.options[0].outerHTML;
+
+
+    select.innerHTML=first;
+
+
+    values.forEach(value=>{
+
+        const option=
+        document.createElement(
+            "option"
+        );
+
+
+        option.value=value;
+
+        option.textContent=value;
+
 
         select.appendChild(option);
 
@@ -525,395 +1576,829 @@ function fillSelect(id, values) {
 }
 
 
-/* APPLY FILTER */
+/* =====================================================
+   APPLY
+===================================================== */
 
-function applyFilters() {
+function applyFilters(){
 
-    const from = document.getElementById("fromDate").value;
-    const to = document.getElementById("toDate").value;
+    const from=
+    document.getElementById(
+        "fromDate"
+    ).value;
 
-    const platform = document.getElementById("platform").value;
-    const brand = document.getElementById("brand").value;
-    const product = document.getElementById("product").value;
 
-    filteredData = allData.filter(row => {
+    const to=
+    document.getElementById(
+        "toDate"
+    ).value;
 
-        const date = dateValue(row["ORDER DATE"]);
 
-        if(from && date && date < new Date(from)) return false;
+    const platform=
+    document.getElementById(
+        "platform"
+    ).value;
 
-        if(to && date && date > new Date(to + "T23:59:59")) return false;
 
-        if(platform && row["PLATFORM"] !== platform) return false;
+    const brand=
+    document.getElementById(
+        "brand"
+    ).value;
 
-        if(brand && row["BRAND"] !== brand) return false;
 
-        if(product && row["PRODUCT"] !== product) return false;
+    const product=
+    document.getElementById(
+        "product"
+    ).value;
+
+
+    filteredData=
+    allData.filter(row=>{
+
+
+        const date=
+        dateValue(
+            row["ORDER DATE"]
+        );
+
+
+        if(
+            from &&
+            date &&
+            date < new Date(from)
+        ){
+
+            return false;
+
+        }
+
+
+        if(
+            to &&
+            date &&
+            date >
+            new Date(
+                to+"T23:59:59"
+            )
+        ){
+
+            return false;
+
+        }
+
+
+        if(
+            platform &&
+            row["PLATFORM"]!==platform
+        ){
+
+            return false;
+
+        }
+
+
+        if(
+            brand &&
+            row["BRAND"]!==brand
+        ){
+
+            return false;
+
+        }
+
+
+        if(
+            product &&
+            row["PRODUCT"]!==product
+        ){
+
+            return false;
+
+        }
+
 
         return true;
 
     });
 
-    updateDashboard();
-
-}
-
-
-/* RESET */
-
-function resetFilters() {
-
-    document.getElementById("fromDate").value = "";
-    document.getElementById("toDate").value = "";
-
-    document.getElementById("platform").value = "";
-    document.getElementById("brand").value = "";
-    document.getElementById("product").value = "";
-
-    filteredData = [...allData];
 
     updateDashboard();
 
 }
 
 
-/* UPDATE DASHBOARD */
+/* =====================================================
+   RESET
+===================================================== */
 
-function updateDashboard() {
+function resetFilters(){
 
-    updateCards();
-    updateCharts();
-    updateTable();
+    document.getElementById(
+        "fromDate"
+    ).value="";
+
+
+    document.getElementById(
+        "toDate"
+    ).value="";
+
+
+    document.getElementById(
+        "platform"
+    ).value="";
+
+
+    document.getElementById(
+        "brand"
+    ).value="";
+
+
+    document.getElementById(
+        "product"
+    ).value="";
+
+
+    filteredData=
+    [...allData];
+
+
+    updateDashboard();
 
 }
 
 
-/* CARDS */
+/* =====================================================
+   UNIQUE ORDERS
+===================================================== */
 
-function updateCards() {
+function uniqueOrders(data){
 
-    /*
-       VALUE is treated as order-level value.
-       Therefore only the first row of each order
-       contributes to total sales.
-    */
+    const map=
+    new Map();
 
-    const orderMap = new Map();
 
-    filteredData.forEach(row => {
+    data.forEach(row=>{
 
-        const id = row["ORDER ID"];
+        const id=
+        row["ORDER ID"];
 
-        if(!orderMap.has(id)) {
-            orderMap.set(id,row);
+
+        if(!map.has(id)){
+
+            map.set(
+                id,
+                row
+            );
+
         }
 
     });
 
-    let sales = 0;
-    let refunds = 0;
 
-    orderMap.forEach(row => {
+    return map;
 
-        sales += number(row["VALUE"]);
-        refunds += number(row["REFUND AMOUNT"]);
+}
 
-    });
 
-    const qty = filteredData.reduce(
-        (sum,row) => sum + number(row["QTY"]),0
+/* =====================================================
+   CARDS
+===================================================== */
+
+function updateCards(){
+
+    const orders=
+    uniqueOrders(
+        filteredData
     );
 
-    const orders = orderMap.size;
 
-    const net = sales - refunds;
+    let sales=0;
 
-    const avg = orders ? sales / orders : 0;
-
-    document.getElementById("totalSales").textContent =
-        money(sales);
-
-    document.getElementById("totalOrders").textContent =
-        orders.toLocaleString("en-IN");
-
-    document.getElementById("totalQty").textContent =
-        qty.toLocaleString("en-IN");
-
-    document.getElementById("refundAmount").textContent =
-        money(refunds);
-
-    document.getElementById("netSales").textContent =
-        money(net);
-
-    document.getElementById("avgOrder").textContent =
-        money(avg);
-
-}
+    let refunds=0;
 
 
-/* MONEY */
+    orders.forEach(row=>{
 
-function money(value) {
+        sales+=
+        number(
+            row["VALUE"]
+        );
 
-    return "₹" + Math.round(value).toLocaleString("en-IN");
 
-}
-
-
-/* GROUP */
-
-function groupSales(column) {
-
-    const result = {};
-
-    filteredData.forEach(row => {
-
-        const key = row[column] || "Unknown";
-
-        /*
-          Product/location charts use row values.
-          If VALUE exists only on first order row,
-          use quantity/value based on available line.
-        */
-
-        const amount = number(row["VALUE"]);
-
-        if(!result[key]) result[key] = 0;
-
-        result[key] += amount;
+        refunds+=
+        number(
+            row["REFUND AMOUNT"]
+        );
 
     });
 
-    return result;
 
-}
+    const qty=
+    filteredData.reduce(
+        (sum,row)=>
+        sum+
+        number(row["QTY"]),
+        0
+    );
 
 
-/* DATE SALES */
+    const totalOrders=
+    orders.size;
 
-function salesByDate() {
 
-    const result = {};
+    const net=
+    sales-refunds;
 
-    const orderMap = new Map();
 
-    filteredData.forEach(row => {
+    const avg=
+    totalOrders
+    ? sales/totalOrders
+    : 0;
 
-        const id = row["ORDER ID"];
 
-        if(!orderMap.has(id)) {
-            orderMap.set(id,row);
+    document.getElementById(
+        "totalSales"
+    ).textContent=
+    money(sales);
+
+
+    document.getElementById(
+        "totalOrders"
+    ).textContent=
+    totalOrders.toLocaleString(
+        "en-IN"
+    );
+
+
+    document.getElementById(
+        "totalQty"
+    ).textContent=
+    qty.toLocaleString(
+        "en-IN"
+    );
+
+
+    document.getElementById(
+        "refundAmount"
+    ).textContent=
+    money(refunds);
+
+
+    document.getElementById(
+        "netSales"
+    ).textContent=
+    money(net);
+
+
+    document.getElementById(
+        "avgOrder"
+    ).textContent=
+    money(avg);
+
+
+    let paid=0;
+
+    let refunded=0;
+
+
+    orders.forEach(row=>{
+
+        const status=
+        String(
+            row["FINANCIAL STATUS"] || ""
+        ).toLowerCase();
+
+
+        if(status==="paid"){
+            paid++;
+        }
+
+
+        if(status==="refunded"){
+            refunded++;
         }
 
     });
 
-    orderMap.forEach(row => {
 
-        const date = row["ORDER DATE"] || "Unknown";
+    document.getElementById(
+        "paidOrders"
+    ).textContent=paid;
 
-        if(!result[date]) result[date] = 0;
 
-        result[date] += number(row["VALUE"]);
+    document.getElementById(
+        "refundedOrders"
+    ).textContent=refunded;
+
+
+    document.getElementById(
+        "statusRefund"
+    ).textContent=
+    money(refunds);
+
+}
+
+
+/* =====================================================
+   GROUP SALES
+===================================================== */
+
+function groupSales(column){
+
+    const result={};
+
+
+    filteredData.forEach(row=>{
+
+        const key=
+        row[column] ||
+        "Unknown";
+
+
+        if(!result[key]){
+            result[key]=0;
+        }
+
+
+        result[key]+=
+        number(
+            row["VALUE"]
+        );
 
     });
+
 
     return result;
 
 }
 
 
-/* CHART */
+/* =====================================================
+   DATE SALES
+===================================================== */
 
-function createChart(id,type,labels,data,options={}) {
+function salesByDate(){
 
-    if(charts[id]) {
+    const result={};
+
+
+    const orders=
+    uniqueOrders(
+        filteredData
+    );
+
+
+    orders.forEach(row=>{
+
+        const date=
+        row["ORDER DATE"] ||
+        "Unknown";
+
+
+        if(!result[date]){
+            result[date]=0;
+        }
+
+
+        result[date]+=
+        number(
+            row["VALUE"]
+        );
+
+    });
+
+
+    return result;
+
+}
+
+
+/* =====================================================
+   CHART
+===================================================== */
+
+function createChart(
+    id,
+    type,
+    labels,
+    data,
+    options={}
+){
+
+    if(charts[id]){
+
         charts[id].destroy();
+
     }
 
-    charts[id] = new Chart(
+
+    charts[id]=
+    new Chart(
         document.getElementById(id),
         {
+
             type:type,
 
             data:{
+
                 labels:labels,
 
-                datasets:[
-                    {
-                        label:"Sales",
-                        data:data
-                    }
-                ]
+                datasets:[{
+
+                    label:"Sales",
+
+                    data:data,
+
+                    borderWidth:2,
+
+                    borderRadius:5,
+
+                    tension:.35
+
+                }]
+
             },
 
+
             options:{
+
                 responsive:true,
+
                 maintainAspectRatio:false,
 
-                plugins:{
-                    legend:{
-                        display:type === "doughnut"
-                    }
+                animation:{
+                    duration:500
                 },
 
+
+                plugins:{
+
+                    legend:{
+                        display:
+                        type==="doughnut"
+                    }
+
+                },
+
+
+                scales:
+                type==="doughnut"
+                ? {}
+                : {
+
+                    x:{
+
+                        ticks:{
+                            font:{
+                                size:8
+                            }
+                        }
+
+                    },
+
+                    y:{
+
+                        beginAtZero:true,
+
+                        ticks:{
+
+                            font:{
+                                size:8
+                            },
+
+                            callback:
+                            function(value){
+
+                                return "₹"+
+                                value.toLocaleString(
+                                    "en-IN"
+                                );
+
+                            }
+
+                        }
+
+                    }
+
+                },
+
+
                 ...options
+
             }
+
         }
     );
 
 }
 
 
-/* CHARTS */
+/* =====================================================
+   CHARTS
+===================================================== */
 
-function updateCharts() {
+function updateCharts(){
 
-    const dates = salesByDate();
+
+    /* SALES TREND */
+
+    const dates=
+    salesByDate();
+
+
+    const dateKeys=
+    Object.keys(dates)
+    .sort(
+        (a,b)=>
+        new Date(a)-
+        new Date(b)
+    );
+
 
     createChart(
+
         "dateChart",
+
         "line",
-        Object.keys(dates),
-        Object.values(dates)
-    );
 
+        dateKeys,
 
-    const products = groupSales("PRODUCT");
+        dateKeys.map(
+            key=>dates[key]
+        ),
 
-    const productEntries =
-        Object.entries(products)
-        .sort((a,b)=>b[1]-a[1])
-        .slice(0,10);
+        {
 
-    createChart(
-        "productChart",
-        "bar",
-        productEntries.map(x=>x[0]),
-        productEntries.map(x=>x[1])
-    );
+            plugins:{
+                legend:{
+                    display:false
+                }
+            }
 
-
-    const locations = groupSales("LOCATION");
-
-    const locationEntries =
-        Object.entries(locations)
-        .sort((a,b)=>b[1]-a[1])
-        .slice(0,10);
-
-    createChart(
-        "locationChart",
-        "bar",
-        locationEntries.map(x=>x[0]),
-        locationEntries.map(x=>x[1])
-    );
-
-
-    const status = {};
-
-    const orderMap = new Map();
-
-    filteredData.forEach(row => {
-
-        const id = row["ORDER ID"];
-
-        if(!orderMap.has(id)) {
-            orderMap.set(id,row);
         }
 
-    });
+    );
 
-    orderMap.forEach(row => {
 
-        const key = row["FINANCIAL STATUS"] || "Unknown";
+    /* PRODUCTS */
 
-        status[key] =
-            (status[key] || 0) + number(row["VALUE"]);
+    const products=
+    groupSales(
+        "PRODUCT"
+    );
 
-    });
+
+    const productEntries=
+    Object.entries(products)
+    .sort(
+        (a,b)=>b[1]-a[1]
+    )
+    .slice(0,6);
 
 
     createChart(
-        "statusChart",
+
+        "productChart",
+
+        "bar",
+
+        productEntries.map(
+            x=>x[0]
+        ),
+
+        productEntries.map(
+            x=>x[1]
+        ),
+
+        {
+
+            indexAxis:"y",
+
+            plugins:{
+                legend:{
+                    display:false
+                }
+            }
+
+        }
+
+    );
+
+
+    /* CITY */
+
+    const cities=
+    groupSales(
+        "LOCATION"
+    );
+
+
+    const cityEntries=
+    Object.entries(cities)
+    .sort(
+        (a,b)=>b[1]-a[1]
+    )
+    .slice(0,8);
+
+
+    createChart(
+
+        "cityChart",
+
+        "bar",
+
+        cityEntries.map(
+            x=>x[0]
+        ),
+
+        cityEntries.map(
+            x=>x[1]
+        ),
+
+        {
+
+            indexAxis:"y",
+
+            plugins:{
+                legend:{
+                    display:false
+                }
+            }
+
+        }
+
+    );
+
+
+    /* PLATFORM */
+
+    const platforms=
+    groupSales(
+        "PLATFORM"
+    );
+
+
+    createChart(
+
+        "platformChart",
+
         "doughnut",
-        Object.keys(status),
-        Object.values(status)
+
+        Object.keys(platforms),
+
+        Object.values(platforms)
+
     );
 
 }
 
 
-/* TABLE */
+/* =====================================================
+   TABLE
+===================================================== */
 
-function updateTable() {
+function updateTable(){
 
-    const tbody =
-        document.getElementById("orderTable");
+    const tbody=
+    document.getElementById(
+        "orderTable"
+    );
 
-    tbody.innerHTML = "";
 
-    filteredData.slice(0,200).forEach(row => {
+    tbody.innerHTML="";
 
-        const tr = document.createElement("tr");
 
-        const status =
-            row["FINANCIAL STATUS"] || "";
+    const rows=
+    [...filteredData]
+    .reverse()
+    .slice(0,100);
 
-        tr.innerHTML = `
 
-        <td>${safe(row["ORDER ID"])}</td>
+    rows.forEach(row=>{
 
-        <td>${safe(row["ORDER DATE"])}</td>
+        const tr=
+        document.createElement(
+            "tr"
+        );
 
-        <td>${safe(row["LOCATION"])}</td>
 
-        <td>${safe(row["PLATFORM"])}</td>
+        const status=
+        row["FINANCIAL STATUS"] ||
+        "";
 
-        <td>${safe(row["PRODUCT"])}</td>
 
-        <td>${safe(row["QTY"])}</td>
+        let cls=
+        "status-other";
 
-        <td>${money(number(row["VALUE"]))}</td>
 
-        <td class="${
-            status.toLowerCase() === "paid"
-            ? "status-paid"
-            : status.toLowerCase() === "refunded"
-            ? "status-refunded"
-            : ""
-        }">
-        ${safe(status)}
-        </td>
+        if(
+            status.toLowerCase()==="paid"
+        ){
 
-        <td>${money(number(row["REFUND AMOUNT"]))}</td>
+            cls="status-paid";
+
+        }
+
+
+        else if(
+            status.toLowerCase()==="refunded"
+        ){
+
+            cls="status-refunded";
+
+        }
+
+
+        tr.innerHTML=`
+
+            <td>
+                ${safe(row["ORDER ID"])}
+            </td>
+
+            <td>
+                ${safe(row["ORDER DATE"])}
+            </td>
+
+            <td>
+                ${safe(row["LOCATION"])}
+            </td>
+
+            <td>
+                ${safe(row["PLATFORM"])}
+            </td>
+
+            <td>
+                ${safe(row["PRODUCT"])}
+            </td>
+
+            <td>
+                ${safe(row["QTY"])}
+            </td>
+
+            <td>
+                ${money(
+                    number(
+                        row["VALUE"]
+                    )
+                )}
+            </td>
+
+            <td class="${cls}">
+                ${safe(status)}
+            </td>
+
+            <td>
+                ${money(
+                    number(
+                        row["REFUND AMOUNT"]
+                    )
+                )}
+            </td>
 
         `;
+
 
         tbody.appendChild(tr);
 
     });
 
-}
 
-
-/* HTML SAFE */
-
-function safe(value) {
-
-    return String(value || "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;");
+    document.getElementById(
+        "rowCount"
+    ).textContent=
+    filteredData.length+
+    " rows";
 
 }
 
 
-/* START */
+/* =====================================================
+   SAFE HTML
+===================================================== */
+
+function safe(value){
+
+    return String(
+        value || ""
+    )
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;");
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
 
 loadData();
 
 </script>
 
+
 </body>
+
 </html>
 ```
