@@ -1,1230 +1,560 @@
 ```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<title>GEM'S GOLD Sales Dashboard</title>
 
-<title>GEM'S GOLD SALES DASHBOARD</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
 <style>
-
-/* =========================
-   GLOBAL
-========================= */
 
 *{
     box-sizing:border-box;
 }
 
-html,body{
-    margin:0;
-    padding:0;
-    width:100%;
-    min-height:100%;
-}
-
 body{
-
-    font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
-
+    margin:0;
+    font-family:'Montserrat',sans-serif;
     background:
-    linear-gradient(
-        135deg,
-        #667eea 0%,
-        #764ba2 35%,
-        #f093fb 70%,
-        #4facfe 100%
-    );
-
+        linear-gradient(135deg,#4f46e5,#7c3aed,#db2777,#0891b2);
+    background-attachment:fixed;
     color:#172033;
-
 }
-
-
-/* =========================
-   MAIN
-========================= */
-
-.dashboard{
-
-    width:100%;
-
-    min-height:100vh;
-
-}
-
-
-/* =========================
-   HEADER
-========================= */
 
 .header{
-
-    background:
-    linear-gradient(
-        90deg,
-        #111827,
-        #312e81,
-        #4c1d95
-    );
-
+    height:70px;
+    background:rgba(15,23,42,.94);
     color:white;
-
-    padding:
-    12px 22px;
-
     display:flex;
-
-    justify-content:
-    space-between;
-
     align-items:center;
-
-    box-shadow:
-    0 3px 15px
-    rgba(0,0,0,.20);
-
+    justify-content:space-between;
+    padding:0 25px;
+    box-shadow:0 5px 20px rgba(0,0,0,.25);
 }
 
-
-.header-left h1{
-
-    margin:0;
-
-    font-size:22px;
-
-    letter-spacing:.5px;
-
+.logo{
+    font-size:21px;
+    font-weight:800;
 }
 
-
-.header-left p{
-
-    margin:3px 0 0;
-
-    font-size:10px;
-
-    color:#dbeafe;
-
+.logo small{
+    display:block;
+    font-size:9px;
+    color:#cbd5e1;
+    margin-top:3px;
 }
-
 
 .refresh{
-
-    border:none;
-
-    background:
-    linear-gradient(
-        135deg,
-        #fbbf24,
-        #f59e0b
-    );
-
+    border:0;
+    padding:9px 16px;
+    border-radius:8px;
+    background:#fbbf24;
     color:#111827;
-
-    padding:
-    8px 14px;
-
-    border-radius:7px;
-
-    font-weight:bold;
-
+    font-weight:700;
     cursor:pointer;
-
 }
 
-
-/* =========================
-   CONTENT
-========================= */
-
-.container{
-
-    width:100%;
-
+.main{
+    padding:15px;
     max-width:1500px;
-
     margin:auto;
-
-    padding:12px;
-
 }
 
+.title{
+    color:white;
+    margin:2px 0 12px;
+}
 
-/* =========================
-   FILTERS
-========================= */
+.title h1{
+    margin:0;
+    font-size:20px;
+}
+
+.title p{
+    margin:3px 0;
+    font-size:10px;
+    opacity:.85;
+}
+
+/* FILTERS */
 
 .filters{
-
-    background:
-    rgba(255,255,255,.95);
-
-    border-radius:10px;
-
-    padding:9px;
-
+    background:rgba(255,255,255,.96);
+    padding:10px;
+    border-radius:12px;
     display:grid;
-
-    grid-template-columns:
-    120px
-    120px
-    1fr
-    1fr
-    1.4fr
-    auto;
-
-    gap:7px;
-
-    box-shadow:
-    0 5px 20px
-    rgba(0,0,0,.12);
-
-    margin-bottom:9px;
-
+    grid-template-columns:repeat(5,1fr) auto;
+    gap:8px;
+    margin-bottom:10px;
+    box-shadow:0 6px 20px rgba(0,0,0,.15);
 }
-
 
 .filter label{
-
     display:block;
-
     font-size:9px;
-
-    font-weight:bold;
-
+    font-weight:700;
     color:#64748b;
-
-    margin-bottom:3px;
-
+    margin-bottom:4px;
 }
 
-
-.filter input,
-.filter select{
-
+.filter select,
+.filter input{
     width:100%;
-
-    height:30px;
-
-    border:
-    1px solid #d1d5db;
-
-    border-radius:5px;
-
-    padding:
-    4px 7px;
-
-    font-size:11px;
-
-    background:white;
-
-}
-
-
-.filter-buttons{
-
-    display:flex;
-
-    align-items:end;
-
-    gap:5px;
-
-}
-
-
-.filter-buttons button{
-
-    height:30px;
-
-    border:none;
-
-    border-radius:5px;
-
-    padding:
-    0 10px;
-
+    height:31px;
+    border:1px solid #d1d5db;
+    border-radius:6px;
+    padding:4px 7px;
     font-size:10px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-
 }
 
+.buttons{
+    display:flex;
+    gap:5px;
+    align-items:end;
+}
+
+.buttons button{
+    height:31px;
+    border:0;
+    border-radius:6px;
+    padding:0 12px;
+    font-size:10px;
+    font-weight:700;
+    cursor:pointer;
+}
 
 .apply{
-
     background:#4f46e5;
-
     color:white;
-
 }
-
 
 .reset{
-
     background:#e5e7eb;
-
-    color:#111827;
-
 }
 
-
-/* =========================
-   KPI
-========================= */
+/* CARDS */
 
 .cards{
-
     display:grid;
-
-    grid-template-columns:
-    repeat(6,1fr);
-
+    grid-template-columns:repeat(6,1fr);
     gap:8px;
-
-    margin-bottom:9px;
-
+    margin-bottom:10px;
 }
-
 
 .card{
-
-    background:
-    rgba(255,255,255,.96);
-
-    border-radius:9px;
-
-    padding:
-    10px 12px;
-
-    box-shadow:
-    0 4px 16px
-    rgba(0,0,0,.12);
-
-    position:relative;
-
-    overflow:hidden;
-
+    min-height:85px;
+    padding:11px;
+    border-radius:11px;
+    color:white;
+    box-shadow:0 6px 18px rgba(0,0,0,.16);
 }
 
-
-.card:before{
-
-    content:"";
-
-    position:absolute;
-
-    left:0;
-
-    top:0;
-
-    width:100%;
-
-    height:3px;
-
-    background:
-    linear-gradient(
-        90deg,
-        #6366f1,
-        #ec4899,
-        #06b6d4
-    );
-
+.card:nth-child(1){
+    background:linear-gradient(135deg,#2563eb,#06b6d4);
 }
 
+.card:nth-child(2){
+    background:linear-gradient(135deg,#7c3aed,#ec4899);
+}
+
+.card:nth-child(3){
+    background:linear-gradient(135deg,#059669,#22c55e);
+}
+
+.card:nth-child(4){
+    background:linear-gradient(135deg,#dc2626,#f97316);
+}
+
+.card:nth-child(5){
+    background:linear-gradient(135deg,#d97706,#facc15);
+}
+
+.card:nth-child(6){
+    background:linear-gradient(135deg,#0891b2,#6366f1);
+}
 
 .card-title{
-
     font-size:9px;
-
-    color:#64748b;
-
-    font-weight:bold;
-
-    margin-bottom:4px;
-
+    font-weight:700;
+    opacity:.9;
 }
-
 
 .card-value{
-
-    font-size:19px;
-
+    font-size:20px;
     font-weight:800;
-
-    color:#111827;
-
+    margin-top:8px;
 }
 
+/* CHARTS */
 
-/* =========================
-   CHART GRID
-========================= */
-
-.charts-top{
-
+.chart-grid{
     display:grid;
-
-    grid-template-columns:
-    1.35fr
-    1fr
-    1fr;
-
-    gap:9px;
-
-    margin-bottom:9px;
-
+    grid-template-columns:1.3fr 1fr;
+    gap:10px;
+    margin-bottom:10px;
 }
 
-
-.chart-box{
-
-    background:
-    rgba(255,255,255,.97);
-
-    border-radius:10px;
-
+.chart-card{
+    background:rgba(255,255,255,.97);
+    border-radius:12px;
     padding:10px;
-
-    box-shadow:
-    0 4px 18px
-    rgba(0,0,0,.12);
-
-    height:245px;
-
+    box-shadow:0 5px 20px rgba(0,0,0,.14);
 }
-
 
 .chart-title{
-
     font-size:12px;
-
-    font-weight:bold;
-
-    margin:
-    0 0 5px;
-
-    color:#1e293b;
-
-}
-
-
-.chart-area{
-
-    height:210px;
-
-    position:relative;
-
-}
-
-
-/* =========================
-   BOTTOM CHARTS
-========================= */
-
-.charts-bottom{
-
-    display:grid;
-
-    grid-template-columns:
-    1.2fr
-    1fr;
-
-    gap:9px;
-
-    margin-bottom:9px;
-
-}
-
-
-.bottom-box{
-
-    background:
-    rgba(255,255,255,.97);
-
-    border-radius:10px;
-
-    padding:10px;
-
-    height:215px;
-
-    box-shadow:
-    0 4px 18px
-    rgba(0,0,0,.12);
-
-}
-
-
-.bottom-chart{
-
-    height:175px;
-
-    position:relative;
-
-}
-
-
-/* =========================
-   FINANCIAL
-========================= */
-
-.financial{
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(3,1fr);
-
-    gap:7px;
-
-    height:175px;
-
-}
-
-
-.financial-card{
-
-    border-radius:9px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    justify-content:center;
-
-    text-align:center;
-
-    background:
-    linear-gradient(
-        135deg,
-        #f8fafc,
-        #eef2ff
-    );
-
-}
-
-
-.financial-label{
-
-    font-size:9px;
-
-    color:#64748b;
-
-    font-weight:bold;
-
-}
-
-
-.financial-value{
-
-    font-size:23px;
-
     font-weight:800;
-
-    margin-top:5px;
-
+    margin:2px 4px 6px;
 }
 
-
-/* =========================
-   TABLE
-========================= */
-
-.table-box{
-
-    background:
-    rgba(255,255,255,.97);
-
-    border-radius:10px;
-
-    padding:11px;
-
-    box-shadow:
-    0 4px 18px
-    rgba(0,0,0,.12);
-
-    overflow:auto;
-
+.chart{
+    height:250px;
 }
 
+/* FINANCE */
 
-.table-head{
-
-    display:flex;
-
-    justify-content:
-    space-between;
-
-    align-items:center;
-
-    margin-bottom:7px;
-
+.finance-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    margin-bottom:10px;
 }
 
-
-.table-head h3{
-
-    margin:0;
-
-    font-size:13px;
-
+.finance{
+    background:rgba(255,255,255,.96);
+    padding:12px;
+    border-radius:11px;
+    box-shadow:0 5px 18px rgba(0,0,0,.13);
 }
 
-
-.row-count{
-
+.finance span{
     font-size:9px;
-
+    font-weight:700;
     color:#64748b;
-
 }
 
+.finance strong{
+    display:block;
+    font-size:20px;
+    margin-top:5px;
+}
+
+/* TABLE */
+
+.table-card{
+    background:rgba(255,255,255,.97);
+    border-radius:12px;
+    padding:11px;
+    box-shadow:0 5px 20px rgba(0,0,0,.14);
+    overflow:auto;
+}
+
+.table-title{
+    font-size:13px;
+    font-weight:800;
+    margin-bottom:8px;
+}
 
 table{
-
     width:100%;
-
-    border-collapse:
-    collapse;
-
+    border-collapse:collapse;
 }
-
 
 th{
-
-    background:
-    linear-gradient(
-        90deg,
-        #eef2ff,
-        #fce7f3
-    );
-
-    color:#334155;
-
+    background:#eef2ff;
+    padding:8px;
     font-size:9px;
-
-    padding:7px;
-
     text-align:left;
-
     white-space:nowrap;
-
 }
-
 
 td{
-
+    padding:7px 8px;
     font-size:9px;
-
-    padding:7px;
-
-    border-bottom:
-    1px solid #e5e7eb;
-
+    border-bottom:1px solid #e5e7eb;
     white-space:nowrap;
-
 }
 
-
-.status-paid{
-
+.paid{
     color:#15803d;
-
-    font-weight:bold;
-
+    font-weight:700;
 }
 
-
-.status-refunded{
-
+.refunded{
     color:#dc2626;
-
-    font-weight:bold;
-
+    font-weight:700;
 }
 
+/* LOADING */
 
-.status-other{
-
-    color:#ca8a04;
-
-    font-weight:bold;
-
-}
-
-
-/* =========================
-   ERROR
-========================= */
-
-.error{
-
-    background:#fee2e2;
-
-    color:#991b1b;
-
-    padding:9px;
-
-    border-radius:7px;
-
-    margin-bottom:9px;
-
-    font-size:11px;
-
-}
-
-
-.loading{
-
+#loading{
     text-align:center;
-
-    padding:20px;
-
+    background:white;
+    padding:12px;
+    border-radius:8px;
+    margin-bottom:10px;
     font-size:11px;
-
-    color:#64748b;
-
 }
 
+#error{
+    display:none;
+    background:#fee2e2;
+    color:#991b1b;
+    padding:10px;
+    border-radius:8px;
+    margin-bottom:10px;
+    font-size:11px;
+}
 
-/* =========================
-   MOBILE
-========================= */
+/* MOBILE */
 
 @media(max-width:1100px){
 
     .cards{
-
-        grid-template-columns:
-        repeat(3,1fr);
-
+        grid-template-columns:repeat(3,1fr);
     }
 
-    .charts-top{
+    .filters{
+        grid-template-columns:repeat(3,1fr);
+    }
 
-        grid-template-columns:
-        1fr 1fr;
-
+    .chart-grid{
+        grid-template-columns:1fr;
     }
 
 }
 
-
-@media(max-width:700px){
+@media(max-width:650px){
 
     .header{
-
-        padding:12px;
-
+        padding:0 12px;
     }
 
-    .header-left h1{
+    .logo{
+        font-size:16px;
+    }
 
-        font-size:18px;
-
+    .main{
+        padding:8px;
     }
 
     .filters{
-
-        grid-template-columns:
-        1fr 1fr;
-
+        grid-template-columns:1fr 1fr;
     }
 
     .cards{
-
-        grid-template-columns:
-        1fr 1fr;
-
+        grid-template-columns:1fr 1fr;
     }
 
-    .charts-top,
-    .charts-bottom{
-
-        grid-template-columns:
-        1fr;
-
+    .finance-grid{
+        grid-template-columns:1fr;
     }
 
 }
 
 </style>
-
 </head>
-
 
 <body>
 
+<header class="header">
 
-<div class="dashboard">
-
-
-<!-- HEADER -->
-
-<div class="header">
-
-    <div class="header-left">
-
-        <h1>
-            GEM'S GOLD SALES DASHBOARD
-        </h1>
-
-        <p>
-            Sales • Orders • Products • City • Financial Performance
-        </p>
-
+    <div class="logo">
+        GEM'S GOLD
+        <small>SALES & BUSINESS DASHBOARD</small>
     </div>
 
-
-    <button
-        class="refresh"
-        onclick="loadData()">
-
-        ↻ Refresh
-
+    <button class="refresh" onclick="loadData()">
+        ↻ Refresh Data
     </button>
 
+</header>
+
+<main class="main">
+
+<div class="title">
+    <h1>Sales Dashboard</h1>
+    <p>Live data from Google Sheets</p>
 </div>
 
-
-<div class="container">
-
+<div id="loading">
+    Loading Google Sheet data...
+</div>
 
 <div id="error"></div>
-
 
 <!-- FILTERS -->
 
 <div class="filters">
 
-
     <div class="filter">
-
         <label>FROM DATE</label>
-
-        <input
-            type="date"
-            id="fromDate">
-
+        <input type="date" id="fromDate">
     </div>
 
-
     <div class="filter">
-
         <label>TO DATE</label>
-
-        <input
-            type="date"
-            id="toDate">
-
+        <input type="date" id="toDate">
     </div>
 
-
     <div class="filter">
-
         <label>PLATFORM</label>
-
         <select id="platform">
-
-            <option value="">
-                All Platforms
-            </option>
-
+            <option value="">All Platforms</option>
         </select>
-
     </div>
 
-
     <div class="filter">
-
         <label>BRAND</label>
-
         <select id="brand">
-
-            <option value="">
-                All Brands
-            </option>
-
+            <option value="">All Brands</option>
         </select>
-
     </div>
-
 
     <div class="filter">
-
         <label>PRODUCT</label>
-
         <select id="product">
-
-            <option value="">
-                All Products
-            </option>
-
+            <option value="">All Products</option>
         </select>
-
     </div>
 
-
-    <div class="filter-buttons">
-
-        <button
-            class="apply"
-            onclick="applyFilters()">
-
-            APPLY
-
-        </button>
-
-
-        <button
-            class="reset"
-            onclick="resetFilters()">
-
-            RESET
-
-        </button>
-
+    <div class="buttons">
+        <button class="apply" onclick="applyFilters()">APPLY</button>
+        <button class="reset" onclick="resetFilters()">RESET</button>
     </div>
-
 
 </div>
 
-
-<!-- KPI CARDS -->
+<!-- KPI -->
 
 <div class="cards">
 
-
     <div class="card">
-
-        <div class="card-title">
-            TOTAL SALES
-        </div>
-
-        <div
-            class="card-value"
-            id="totalSales">
-
-            ₹0
-
-        </div>
-
+        <div class="card-title">TOTAL SALES</div>
+        <div class="card-value" id="sales">₹0</div>
     </div>
 
-
     <div class="card">
-
-        <div class="card-title">
-            TOTAL ORDERS
-        </div>
-
-        <div
-            class="card-value"
-            id="totalOrders">
-
-            0
-
-        </div>
-
+        <div class="card-title">TOTAL ORDERS</div>
+        <div class="card-value" id="orders">0</div>
     </div>
 
-
     <div class="card">
-
-        <div class="card-title">
-            TOTAL QTY
-        </div>
-
-        <div
-            class="card-value"
-            id="totalQty">
-
-            0
-
-        </div>
-
+        <div class="card-title">TOTAL QTY</div>
+        <div class="card-value" id="qty">0</div>
     </div>
 
-
     <div class="card">
-
-        <div class="card-title">
-            REFUND
-        </div>
-
-        <div
-            class="card-value"
-            id="refundAmount">
-
-            ₹0
-
-        </div>
-
+        <div class="card-title">REFUND AMOUNT</div>
+        <div class="card-value" id="refund">₹0</div>
     </div>
 
-
     <div class="card">
-
-        <div class="card-title">
-            NET SALES
-        </div>
-
-        <div
-            class="card-value"
-            id="netSales">
-
-            ₹0
-
-        </div>
-
+        <div class="card-title">NET SALES</div>
+        <div class="card-value" id="net">₹0</div>
     </div>
 
-
     <div class="card">
-
-        <div class="card-title">
-            AVERAGE ORDER
-        </div>
-
-        <div
-            class="card-value"
-            id="avgOrder">
-
-            ₹0
-
-        </div>
-
+        <div class="card-title">AVERAGE ORDER</div>
+        <div class="card-value" id="average">₹0</div>
     </div>
-
 
 </div>
 
+<!-- CHARTS -->
 
-<!-- TOP CHARTS -->
+<div class="chart-grid">
 
-<div class="charts-top">
-
-
-    <div class="chart-box">
-
-        <div class="chart-title">
-            📈 Sales Trend
-        </div>
-
-        <div class="chart-area">
-
-            <canvas id="dateChart"></canvas>
-
-        </div>
-
+    <div class="chart-card">
+        <div class="chart-title">📈 Sales Trend</div>
+        <div id="salesChart" class="chart"></div>
     </div>
 
-
-    <div class="chart-box">
-
-        <div class="chart-title">
-            🏆 Top Products
-        </div>
-
-        <div class="chart-area">
-
-            <canvas id="productChart"></canvas>
-
-        </div>
-
+    <div class="chart-card">
+        <div class="chart-title">🏆 Top Products</div>
+        <div id="productChart" class="chart"></div>
     </div>
-
-
-    <div class="chart-box">
-
-        <div class="chart-title">
-            🏙️ City-wise Sales
-        </div>
-
-        <div class="chart-area">
-
-            <canvas id="cityChart"></canvas>
-
-        </div>
-
-    </div>
-
 
 </div>
 
+<div class="chart-grid">
 
-<!-- BOTTOM -->
-
-<div class="charts-bottom">
-
-
-    <div class="bottom-box">
-
-        <div class="chart-title">
-            🌐 Platform-wise Sales
-        </div>
-
-        <div class="bottom-chart">
-
-            <canvas id="platformChart"></canvas>
-
-        </div>
-
+    <div class="chart-card">
+        <div class="chart-title">🏙️ City-wise Sales</div>
+        <div id="cityChart" class="chart"></div>
     </div>
 
-
-    <div class="bottom-box">
-
-        <div class="chart-title">
-            💳 Financial Summary
-        </div>
-
-
-        <div class="financial">
-
-
-            <div class="financial-card">
-
-                <div class="financial-label">
-                    PAID ORDERS
-                </div>
-
-                <div
-                    class="financial-value"
-                    id="paidOrders">
-
-                    0
-
-                </div>
-
-            </div>
-
-
-            <div class="financial-card">
-
-                <div class="financial-label">
-                    REFUNDED ORDERS
-                </div>
-
-                <div
-                    class="financial-value"
-                    id="refundedOrders">
-
-                    0
-
-                </div>
-
-            </div>
-
-
-            <div class="financial-card">
-
-                <div class="financial-label">
-                    REFUND AMOUNT
-                </div>
-
-                <div
-                    class="financial-value"
-                    id="statusRefund">
-
-                    ₹0
-
-                </div>
-
-            </div>
-
-
-        </div>
-
+    <div class="chart-card">
+        <div class="chart-title">🌐 Platform-wise Sales</div>
+        <div id="platformChart" class="chart"></div>
     </div>
-
 
 </div>
 
+<!-- FINANCIAL -->
 
-<!-- ORDER TABLE -->
+<div class="finance-grid">
 
-<div class="table-box">
-
-
-    <div class="table-head">
-
-        <h3>
-            📋 Recent Orders
-        </h3>
-
-        <span
-            class="row-count"
-            id="rowCount">
-
-            0 rows
-
-        </span>
-
+    <div class="finance">
+        <span>PAID ORDERS</span>
+        <strong id="paidOrders">0</strong>
     </div>
 
+    <div class="finance">
+        <span>REFUNDED ORDERS</span>
+        <strong id="refundedOrders">0</strong>
+    </div>
+
+    <div class="finance">
+        <span>TOTAL REFUND</span>
+        <strong id="totalRefund">₹0</strong>
+    </div>
+
+</div>
+
+<!-- TABLE -->
+
+<div class="table-card">
+
+    <div class="table-title">
+        📋 Recent Orders
+    </div>
 
     <table>
 
         <thead>
 
             <tr>
-
                 <th>ORDER ID</th>
-
-                <th>DATE</th>
-
+                <th>ORDER DATE</th>
                 <th>CITY</th>
-
                 <th>PLATFORM</th>
-
                 <th>PRODUCT</th>
-
                 <th>QTY</th>
-
                 <th>VALUE</th>
-
                 <th>STATUS</th>
-
                 <th>REFUND</th>
-
             </tr>
 
         </thead>
 
-
-        <tbody id="orderTable"></tbody>
+        <tbody id="ordersTable"></tbody>
 
     </table>
 
-
 </div>
 
-
-</div>
-
-</div>
-
+</main>
 
 <script>
 
-
 /* =====================================================
-   GOOGLE SHEET
+   GOOGLE SHEET CSV
 ===================================================== */
 
 const CSV_URL =
@@ -1232,62 +562,59 @@ const CSV_URL =
 
 
 let allData=[];
-
 let filteredData=[];
-
-let charts={};
 
 
 /* =====================================================
-   CSV
+   CSV PARSER
 ===================================================== */
 
 function parseCSV(text){
 
     const rows=[];
-
     let row=[];
-
     let value="";
-
-    let quote=false;
-
+    let insideQuotes=false;
 
     for(let i=0;i<text.length;i++){
 
-        const c=text[i];
+        const char=text[i];
 
-        const next=text[i+1];
+        if(char==='"'){
 
+            if(
+                insideQuotes &&
+                text[i+1]==='"'
+            ){
 
-        if(c==='"' && quote && next==='"'){
+                value+='"';
+                i++;
 
-            value+='"';
+            }else{
 
-            i++;
+                insideQuotes=!insideQuotes;
+
+            }
 
         }
-
-        else if(c==='"'){
-
-            quote=!quote;
-
-        }
-
-        else if(c===',' && !quote){
+        else if(
+            char===',' &&
+            !insideQuotes
+        ){
 
             row.push(value);
-
             value="";
 
         }
-
         else if(
-            (c==='\n'||c==='\r')
-            && !quote
+            (char==='\n'||char==='\r') &&
+            !insideQuotes
         ){
 
-            if(c==='\r' && next==='\n'){
+            if(
+                char==='\r' &&
+                text[i+1]==='\n'
+            ){
                 i++;
             }
 
@@ -1298,49 +625,43 @@ function parseCSV(text){
                     x=>x.trim()!==""
                 )
             ){
-
                 rows.push(row);
-
             }
 
             row=[];
-
             value="";
 
         }
-
         else{
 
-            value+=c;
+            value+=char;
 
         }
 
     }
-
 
     if(value || row.length){
 
         row.push(value);
-
         rows.push(row);
 
     }
 
-
     return rows;
-
 }
 
 
 /* =====================================================
-   LOAD
+   LOAD DATA
 ===================================================== */
 
 async function loadData(){
 
-    document.getElementById("error").innerHTML=
-    '<div class="loading">Loading sales data...</div>';
+    document.getElementById("loading")
+        .style.display="block";
 
+    document.getElementById("error")
+        .style.display="none";
 
     try{
 
@@ -1349,58 +670,47 @@ async function loadData(){
             CSV_URL+"&t="+Date.now()
         );
 
-
         if(!response.ok){
 
             throw new Error(
-                "Unable to load data"
+                "Google Sheet could not be loaded."
             );
 
         }
-
 
         const text=
         await response.text();
 
-
         const rows=
         parseCSV(text);
-
 
         if(rows.length<2){
 
             throw new Error(
-                "No data found"
+                "No rows found in Google Sheet."
             );
 
         }
 
-
         const headers=
         rows[0].map(
-            h=>h.trim()
+            x=>x.trim()
         );
 
-
         allData=
-        rows
-        .slice(1)
+        rows.slice(1)
         .map(row=>{
 
             const obj={};
-
 
             headers.forEach(
                 (header,index)=>{
 
                     obj[header]=
-                    (
-                        row[index] || ""
-                    ).trim();
+                    (row[index]||"").trim();
 
                 }
             );
-
 
             return obj;
 
@@ -1409,36 +719,33 @@ async function loadData(){
             row=>row["ORDER ID"]
         );
 
-
         filteredData=
         [...allData];
-
-
-        document.getElementById(
-            "error"
-        ).innerHTML="";
-
 
         populateFilters();
 
         updateDashboard();
 
-    }
+        document.getElementById("loading")
+            .style.display="none";
 
+    }
 
     catch(error){
 
         console.error(error);
 
+        document.getElementById("loading")
+            .style.display="none";
 
-        document.getElementById(
-            "error"
-        ).innerHTML=
+        const errorBox=
+        document.getElementById("error");
 
-        `<div class="error">
-        ❌ Unable to load Google Sheet data.
-        Please check your published CSV.
-        </div>`;
+        errorBox.style.display="block";
+
+        errorBox.innerHTML=
+        "❌ "+error.message+
+        "<br><br>Check that your Google Sheet is published as CSV.";
 
     }
 
@@ -1449,10 +756,9 @@ async function loadData(){
    NUMBER
 ===================================================== */
 
-function number(value){
+function num(value){
 
     if(!value) return 0;
-
 
     return parseFloat(
         String(value)
@@ -1471,103 +777,81 @@ function number(value){
 function money(value){
 
     return "₹"+
-    Math.round(value)
-    .toLocaleString("en-IN");
+        Math.round(value)
+        .toLocaleString("en-IN");
 
 }
 
 
 /* =====================================================
-   DATE
+   UNIQUE ORDER
 ===================================================== */
 
-function dateValue(value){
+function uniqueOrders(data){
 
-    if(!value) return null;
+    const result=new Map();
 
+    data.forEach(row=>{
 
-    const date=
-    new Date(value);
+        const id=row["ORDER ID"];
 
+        if(!result.has(id)){
 
-    if(isNaN(date)) return null;
+            result.set(id,row);
 
+        }
 
-    return date;
+    });
 
-}
-
-
-/* =====================================================
-   UNIQUE
-===================================================== */
-
-function unique(column){
-
-    return [
-        ...new Set(
-            allData
-            .map(
-                row=>row[column]
-            )
-            .filter(Boolean)
-        )
-    ].sort();
+    return result;
 
 }
 
 
 /* =====================================================
-   FILTER
+   FILTER DROPDOWNS
 ===================================================== */
 
 function populateFilters(){
 
     fillSelect(
         "platform",
-        unique("PLATFORM")
+        "PLATFORM"
     );
-
 
     fillSelect(
         "brand",
-        unique("BRAND")
+        "BRAND"
     );
-
 
     fillSelect(
         "product",
-        unique("PRODUCT")
+        "PRODUCT"
     );
 
 }
 
 
-function fillSelect(id,values){
+function fillSelect(id,column){
 
     const select=
     document.getElementById(id);
 
-
-    const first=
-    select.options[0].outerHTML;
-
-
-    select.innerHTML=first;
-
+    const values=[
+        ...new Set(
+            allData
+            .map(row=>row[column])
+            .filter(Boolean)
+        )
+    ].sort();
 
     values.forEach(value=>{
 
         const option=
-        document.createElement(
-            "option"
-        );
-
+        document.createElement("option");
 
         option.value=value;
-
         option.textContent=value;
-
 
         select.appendChild(option);
 
@@ -1577,73 +861,48 @@ function fillSelect(id,values){
 
 
 /* =====================================================
-   APPLY
+   APPLY FILTER
 ===================================================== */
 
 function applyFilters(){
 
     const from=
-    document.getElementById(
-        "fromDate"
-    ).value;
-
+    document.getElementById("fromDate").value;
 
     const to=
-    document.getElementById(
-        "toDate"
-    ).value;
-
+    document.getElementById("toDate").value;
 
     const platform=
-    document.getElementById(
-        "platform"
-    ).value;
-
+    document.getElementById("platform").value;
 
     const brand=
-    document.getElementById(
-        "brand"
-    ).value;
-
+    document.getElementById("brand").value;
 
     const product=
-    document.getElementById(
-        "product"
-    ).value;
+    document.getElementById("product").value;
 
 
     filteredData=
     allData.filter(row=>{
 
-
         const date=
-        dateValue(
-            row["ORDER DATE"]
-        );
+        new Date(row["ORDER DATE"]);
 
 
         if(
             from &&
-            date &&
             date < new Date(from)
         ){
-
             return false;
-
         }
 
 
         if(
             to &&
-            date &&
             date >
-            new Date(
-                to+"T23:59:59"
-            )
+            new Date(to+"T23:59:59")
         ){
-
             return false;
-
         }
 
 
@@ -1651,9 +910,7 @@ function applyFilters(){
             platform &&
             row["PLATFORM"]!==platform
         ){
-
             return false;
-
         }
 
 
@@ -1661,9 +918,7 @@ function applyFilters(){
             brand &&
             row["BRAND"]!==brand
         ){
-
             return false;
-
         }
 
 
@@ -1671,9 +926,7 @@ function applyFilters(){
             product &&
             row["PRODUCT"]!==product
         ){
-
             return false;
-
         }
 
 
@@ -1693,34 +946,14 @@ function applyFilters(){
 
 function resetFilters(){
 
-    document.getElementById(
-        "fromDate"
-    ).value="";
-
-
-    document.getElementById(
-        "toDate"
-    ).value="";
-
-
-    document.getElementById(
-        "platform"
-    ).value="";
-
-
-    document.getElementById(
-        "brand"
-    ).value="";
-
-
-    document.getElementById(
-        "product"
-    ).value="";
-
+    document.getElementById("fromDate").value="";
+    document.getElementById("toDate").value="";
+    document.getElementById("platform").value="";
+    document.getElementById("brand").value="";
+    document.getElementById("product").value="";
 
     filteredData=
     [...allData];
-
 
     updateDashboard();
 
@@ -1728,34 +961,16 @@ function resetFilters(){
 
 
 /* =====================================================
-   UNIQUE ORDERS
+   UPDATE DASHBOARD
 ===================================================== */
 
-function uniqueOrders(data){
+function updateDashboard(){
 
-    const map=
-    new Map();
+    updateCards();
 
+    updateCharts();
 
-    data.forEach(row=>{
-
-        const id=
-        row["ORDER ID"];
-
-
-        if(!map.has(id)){
-
-            map.set(
-                id,
-                row
-            );
-
-        }
-
-    });
-
-
-    return map;
+    updateTable();
 
 }
 
@@ -1773,22 +988,16 @@ function updateCards(){
 
 
     let sales=0;
-
     let refunds=0;
 
 
     orders.forEach(row=>{
 
         sales+=
-        number(
-            row["VALUE"]
-        );
-
+        num(row["VALUE"]);
 
         refunds+=
-        number(
-            row["REFUND AMOUNT"]
-        );
+        num(row["REFUND AMOUNT"]);
 
     });
 
@@ -1796,13 +1005,12 @@ function updateCards(){
     const qty=
     filteredData.reduce(
         (sum,row)=>
-        sum+
-        number(row["QTY"]),
+        sum+num(row["QTY"]),
         0
     );
 
 
-    const totalOrders=
+    const orderCount=
     orders.size;
 
 
@@ -1810,54 +1018,37 @@ function updateCards(){
     sales-refunds;
 
 
-    const avg=
-    totalOrders
-    ? sales/totalOrders
+    const average=
+    orderCount
+    ? sales/orderCount
     : 0;
 
 
-    document.getElementById(
-        "totalSales"
-    ).textContent=
-    money(sales);
+    document.getElementById("sales")
+        .textContent=money(sales);
 
+    document.getElementById("orders")
+        .textContent=
+        orderCount.toLocaleString("en-IN");
 
-    document.getElementById(
-        "totalOrders"
-    ).textContent=
-    totalOrders.toLocaleString(
-        "en-IN"
-    );
+    document.getElementById("qty")
+        .textContent=
+        qty.toLocaleString("en-IN");
 
+    document.getElementById("refund")
+        .textContent=
+        money(refunds);
 
-    document.getElementById(
-        "totalQty"
-    ).textContent=
-    qty.toLocaleString(
-        "en-IN"
-    );
+    document.getElementById("net")
+        .textContent=
+        money(net);
 
-
-    document.getElementById(
-        "refundAmount"
-    ).textContent=
-    money(refunds);
-
-
-    document.getElementById(
-        "netSales"
-    ).textContent=
-    money(net);
-
-
-    document.getElementById(
-        "avgOrder"
-    ).textContent=
-    money(avg);
+    document.getElementById("average")
+        .textContent=
+        money(average);
 
 
     let paid=0;
-
     let refunded=0;
 
 
@@ -1865,14 +1056,13 @@ function updateCards(){
 
         const status=
         String(
-            row["FINANCIAL STATUS"] || ""
+            row["FINANCIAL STATUS"]||""
         ).toLowerCase();
 
 
         if(status==="paid"){
             paid++;
         }
-
 
         if(status==="refunded"){
             refunded++;
@@ -1881,52 +1071,40 @@ function updateCards(){
     });
 
 
-    document.getElementById(
-        "paidOrders"
-    ).textContent=paid;
+    document.getElementById("paidOrders")
+        .textContent=paid;
 
+    document.getElementById("refundedOrders")
+        .textContent=refunded;
 
-    document.getElementById(
-        "refundedOrders"
-    ).textContent=refunded;
-
-
-    document.getElementById(
-        "statusRefund"
-    ).textContent=
-    money(refunds);
+    document.getElementById("totalRefund")
+        .textContent=
+        money(refunds);
 
 }
 
 
 /* =====================================================
-   GROUP SALES
+   GROUP
 ===================================================== */
 
-function groupSales(column){
+function groupBy(column){
 
     const result={};
-
 
     filteredData.forEach(row=>{
 
         const key=
-        row[column] ||
-        "Unknown";
-
+        row[column] || "Unknown";
 
         if(!result[key]){
             result[key]=0;
         }
 
-
         result[key]+=
-        number(
-            row["VALUE"]
-        );
+        num(row["VALUE"]);
 
     });
-
 
     return result;
 
@@ -1934,39 +1112,29 @@ function groupSales(column){
 
 
 /* =====================================================
-   DATE SALES
+   SALES BY DATE
 ===================================================== */
 
 function salesByDate(){
 
     const result={};
 
-
-    const orders=
     uniqueOrders(
         filteredData
-    );
-
-
-    orders.forEach(row=>{
+    ).forEach(row=>{
 
         const date=
         row["ORDER DATE"] ||
         "Unknown";
 
-
         if(!result[date]){
             result[date]=0;
         }
 
-
         result[date]+=
-        number(
-            row["VALUE"]
-        );
+        num(row["VALUE"]);
 
     });
-
 
     return result;
 
@@ -1974,121 +1142,28 @@ function salesByDate(){
 
 
 /* =====================================================
-   CHART
+   CHART HELPER
 ===================================================== */
 
-function createChart(
-    id,
-    type,
-    labels,
-    data,
-    options={}
+function chart(
+    element,
+    options
 ){
 
-    if(charts[id]){
+    const target=
+    document.querySelector(element);
 
-        charts[id].destroy();
+    target.innerHTML="";
 
-    }
-
-
-    charts[id]=
-    new Chart(
-        document.getElementById(id),
-        {
-
-            type:type,
-
-            data:{
-
-                labels:labels,
-
-                datasets:[{
-
-                    label:"Sales",
-
-                    data:data,
-
-                    borderWidth:2,
-
-                    borderRadius:5,
-
-                    tension:.35
-
-                }]
-
-            },
-
-
-            options:{
-
-                responsive:true,
-
-                maintainAspectRatio:false,
-
-                animation:{
-                    duration:500
-                },
-
-
-                plugins:{
-
-                    legend:{
-                        display:
-                        type==="doughnut"
-                    }
-
-                },
-
-
-                scales:
-                type==="doughnut"
-                ? {}
-                : {
-
-                    x:{
-
-                        ticks:{
-                            font:{
-                                size:8
-                            }
-                        }
-
-                    },
-
-                    y:{
-
-                        beginAtZero:true,
-
-                        ticks:{
-
-                            font:{
-                                size:8
-                            },
-
-                            callback:
-                            function(value){
-
-                                return "₹"+
-                                value.toLocaleString(
-                                    "en-IN"
-                                );
-
-                            }
-
-                        }
-
-                    }
-
-                },
-
-
-                ...options
-
-            }
-
-        }
+    const instance=
+    new ApexCharts(
+        target,
+        options
     );
+
+    instance.render();
+
+    return instance;
 
 }
 
@@ -2102,153 +1177,256 @@ function updateCharts(){
 
     /* SALES TREND */
 
-    const dates=
+    const dateData=
     salesByDate();
 
-
-    const dateKeys=
-    Object.keys(dates)
+    const dates=
+    Object.keys(dateData)
     .sort(
         (a,b)=>
-        new Date(a)-
-        new Date(b)
+        new Date(a)-new Date(b)
     );
 
 
-    createChart(
+    chart("#salesChart",{
 
-        "dateChart",
+        series:[{
 
-        "line",
+            name:"Sales",
 
-        dateKeys,
+            data:
+            dates.map(
+                date=>dateData[date]
+            )
 
-        dateKeys.map(
-            key=>dates[key]
-        ),
+        }],
 
-        {
-
-            plugins:{
-                legend:{
-                    display:false
-                }
+        chart:{
+            type:"area",
+            height:250,
+            toolbar:{
+                show:false
             }
+        },
 
+        colors:["#6366f1"],
+
+        stroke:{
+            curve:"smooth",
+            width:3
+        },
+
+        fill:{
+            opacity:.25
+        },
+
+        xaxis:{
+            categories:dates
+        },
+
+        yaxis:{
+            labels:{
+                formatter:value=>
+                "₹"+
+                Math.round(value)
+                .toLocaleString("en-IN")
+            }
+        },
+
+        tooltip:{
+            y:{
+                formatter:value=>
+                money(value)
+            }
         }
 
-    );
+    });
 
 
-    /* PRODUCTS */
+    /* TOP PRODUCTS */
+
+    const productData=
+    groupBy("PRODUCT");
 
     const products=
-    groupSales(
-        "PRODUCT"
-    );
-
-
-    const productEntries=
-    Object.entries(products)
+    Object.entries(productData)
     .sort(
         (a,b)=>b[1]-a[1]
     )
-    .slice(0,6);
+    .slice(0,5);
 
 
-    createChart(
+    chart("#productChart",{
 
-        "productChart",
+        series:[{
 
-        "bar",
+            name:"Sales",
 
-        productEntries.map(
-            x=>x[0]
-        ),
+            data:
+            products.map(
+                x=>x[1]
+            )
 
-        productEntries.map(
-            x=>x[1]
-        ),
+        }],
 
-        {
+        chart:{
+            type:"bar",
+            height:250,
+            toolbar:{
+                show:false
+            }
+        },
 
-            indexAxis:"y",
+        colors:[
+            "#2563eb",
+            "#7c3aed",
+            "#db2777",
+            "#f97316",
+            "#16a34a"
+        ],
 
-            plugins:{
-                legend:{
-                    display:false
-                }
+        plotOptions:{
+
+            bar:{
+
+                distributed:true,
+                borderRadius:5,
+                horizontal:true
+
             }
 
+        },
+
+        dataLabels:{
+            enabled:false
+        },
+
+        xaxis:{
+            categories:
+            products.map(
+                x=>x[0]
+            )
+        },
+
+        tooltip:{
+            y:{
+                formatter:value=>
+                money(value)
+            }
         }
 
-    );
+    });
 
 
     /* CITY */
 
+    const cityData=
+    groupBy("LOCATION");
+
     const cities=
-    groupSales(
-        "LOCATION"
-    );
-
-
-    const cityEntries=
-    Object.entries(cities)
+    Object.entries(cityData)
     .sort(
         (a,b)=>b[1]-a[1]
     )
     .slice(0,8);
 
 
-    createChart(
+    chart("#cityChart",{
 
-        "cityChart",
+        series:[{
 
-        "bar",
+            name:"Sales",
 
-        cityEntries.map(
-            x=>x[0]
-        ),
+            data:
+            cities.map(
+                x=>x[1]
+            )
 
-        cityEntries.map(
-            x=>x[1]
-        ),
+        }],
 
-        {
+        chart:{
+            type:"bar",
+            height:250,
+            toolbar:{
+                show:false
+            }
+        },
 
-            indexAxis:"y",
+        colors:["#0891b2"],
 
-            plugins:{
-                legend:{
-                    display:false
-                }
+        plotOptions:{
+
+            bar:{
+                borderRadius:5,
+                horizontal:true
             }
 
+        },
+
+        dataLabels:{
+            enabled:false
+        },
+
+        xaxis:{
+            categories:
+            cities.map(
+                x=>x[0]
+            )
+        },
+
+        tooltip:{
+            y:{
+                formatter:value=>
+                money(value)
+            }
         }
 
-    );
+    });
 
 
     /* PLATFORM */
 
-    const platforms=
-    groupSales(
-        "PLATFORM"
-    );
+    const platformData=
+    groupBy("PLATFORM");
 
 
-    createChart(
+    chart("#platformChart",{
 
-        "platformChart",
+        series:
+        Object.values(
+            platformData
+        ),
 
-        "doughnut",
+        labels:
+        Object.keys(
+            platformData
+        ),
 
-        Object.keys(platforms),
+        chart:{
+            type:"donut",
+            height:250
+        },
 
-        Object.values(platforms)
+        colors:[
+            "#6366f1",
+            "#ec4899",
+            "#06b6d4",
+            "#22c55e",
+            "#f59e0b"
+        ],
 
-    );
+        legend:{
+            position:"bottom"
+        },
+
+        tooltip:{
+            y:{
+                formatter:value=>
+                money(value)
+            }
+        }
+
+    });
 
 }
 
@@ -2261,95 +1439,57 @@ function updateTable(){
 
     const tbody=
     document.getElementById(
-        "orderTable"
+        "ordersTable"
     );
-
 
     tbody.innerHTML="";
 
 
-    const rows=
-    [...filteredData]
+    filteredData
+    .slice()
     .reverse()
-    .slice(0,100);
-
-
-    rows.forEach(row=>{
+    .slice(0,100)
+    .forEach(row=>{
 
         const tr=
-        document.createElement(
-            "tr"
-        );
+        document.createElement("tr");
 
 
         const status=
-        row["FINANCIAL STATUS"] ||
-        "";
+        row["FINANCIAL STATUS"]||"";
 
 
-        let cls=
-        "status-other";
-
-
-        if(
-            status.toLowerCase()==="paid"
-        ){
-
-            cls="status-paid";
-
-        }
-
-
-        else if(
-            status.toLowerCase()==="refunded"
-        ){
-
-            cls="status-refunded";
-
-        }
+        const statusClass=
+        status.toLowerCase()==="paid"
+        ? "paid"
+        : status.toLowerCase()==="refunded"
+        ? "refunded"
+        : "";
 
 
         tr.innerHTML=`
 
-            <td>
-                ${safe(row["ORDER ID"])}
-            </td>
+            <td>${safe(row["ORDER ID"])}</td>
 
-            <td>
-                ${safe(row["ORDER DATE"])}
-            </td>
+            <td>${safe(row["ORDER DATE"])}</td>
 
-            <td>
-                ${safe(row["LOCATION"])}
-            </td>
+            <td>${safe(row["LOCATION"])}</td>
 
-            <td>
-                ${safe(row["PLATFORM"])}
-            </td>
+            <td>${safe(row["PLATFORM"])}</td>
 
-            <td>
-                ${safe(row["PRODUCT"])}
-            </td>
+            <td>${safe(row["PRODUCT"])}</td>
 
-            <td>
-                ${safe(row["QTY"])}
-            </td>
+            <td>${safe(row["QTY"])}</td>
 
-            <td>
-                ${money(
-                    number(
-                        row["VALUE"]
-                    )
-                )}
-            </td>
+            <td>${money(num(row["VALUE"]))}</td>
 
-            <td class="${cls}">
+            <td class="${statusClass}">
                 ${safe(status)}
             </td>
 
             <td>
                 ${money(
-                    number(
+                    num(
                         row["REFUND AMOUNT"]
                     )
                 )}
@@ -2362,24 +1502,17 @@ function updateTable(){
 
     });
 
-
-    document.getElementById(
-        "rowCount"
-    ).textContent=
-    filteredData.length+
-    " rows";
-
 }
 
 
 /* =====================================================
-   SAFE HTML
+   SECURITY
 ===================================================== */
 
 function safe(value){
 
     return String(
-        value || ""
+        value||""
     )
     .replace(/&/g,"&amp;")
     .replace(/</g,"&lt;")
@@ -2397,8 +1530,6 @@ loadData();
 
 </script>
 
-
 </body>
-
 </html>
 ```
