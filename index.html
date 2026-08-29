@@ -1,42 +1,50 @@
-```html
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>GEM'S GOLD | Sales Dashboard</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
 <style>
-*{box-sizing:border-box}
+*{
+    box-sizing:border-box;
+}
 
 body{
     margin:0;
     font-family:'Montserrat',Arial,sans-serif;
-    background:linear-gradient(135deg,#fff8dc,#fff,#f5e6a8,#eefbf2);
     color:#172033;
+    background:
+        radial-gradient(circle at 10% 10%,#fff3a3 0,transparent 28%),
+        radial-gradient(circle at 90% 15%,#c7f9cc 0,transparent 25%),
+        radial-gradient(circle at 20% 90%,#bfdbfe 0,transparent 25%),
+        linear-gradient(135deg,#fffdf0,#f8fafc,#fff7d6);
+    min-height:100vh;
 }
 
 /* HEADER */
 
 .header{
-    height:68px;
-    background:linear-gradient(90deg,#111827,#292524,#6b4f00);
+    height:70px;
+    background:linear-gradient(90deg,#111827,#4b3500,#b8860b);
     color:white;
     display:flex;
     align-items:center;
     justify-content:space-between;
     padding:0 25px;
-    box-shadow:0 4px 18px rgba(0,0,0,.18);
+    box-shadow:0 5px 20px rgba(0,0,0,.20);
+    position:sticky;
+    top:0;
+    z-index:100;
 }
 
 .logo{
     font-size:21px;
     font-weight:800;
-    letter-spacing:.5px;
 }
 
 .logo span{
@@ -46,16 +54,16 @@ body{
 .logo small{
     display:block;
     font-size:8px;
-    color:#d1d5db;
+    color:#e5e7eb;
     margin-top:3px;
-    letter-spacing:1px;
+    letter-spacing:1.5px;
 }
 
 .refresh{
     border:0;
     background:#facc15;
     color:#111827;
-    padding:9px 15px;
+    padding:10px 17px;
     border-radius:8px;
     font-weight:800;
     cursor:pointer;
@@ -71,23 +79,21 @@ body{
     width:100%;
     max-width:1500px;
     margin:auto;
-    padding:16px;
+    padding:18px;
 }
 
 .page-title{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
     margin-bottom:12px;
 }
 
 .page-title h1{
     margin:0;
-    font-size:20px;
+    font-size:21px;
+    font-weight:800;
 }
 
 .page-title p{
-    margin:4px 0 0;
+    margin:5px 0 0;
     font-size:10px;
     color:#64748b;
 }
@@ -97,10 +103,10 @@ body{
 .status{
     background:white;
     border-radius:10px;
-    padding:9px 12px;
+    padding:10px 13px;
     margin-bottom:10px;
     font-size:10px;
-    box-shadow:0 3px 12px rgba(0,0,0,.08);
+    box-shadow:0 3px 14px rgba(0,0,0,.08);
 }
 
 .error{
@@ -112,14 +118,14 @@ body{
 /* FILTERS */
 
 .filters{
-    background:rgba(255,255,255,.94);
-    padding:10px;
-    border-radius:12px;
+    background:rgba(255,255,255,.96);
+    padding:11px;
+    border-radius:13px;
     display:grid;
     grid-template-columns:1fr 1fr 1.2fr 1.2fr 1.5fr auto;
     gap:8px;
-    margin-bottom:10px;
-    box-shadow:0 4px 15px rgba(0,0,0,.08);
+    margin-bottom:11px;
+    box-shadow:0 5px 18px rgba(0,0,0,.08);
 }
 
 .filter label{
@@ -133,10 +139,10 @@ body{
 .filter select,
 .filter input{
     width:100%;
-    height:32px;
+    height:33px;
     border:1px solid #d1d5db;
-    border-radius:6px;
-    padding:5px;
+    border-radius:7px;
+    padding:5px 7px;
     font-size:10px;
     background:white;
 }
@@ -148,10 +154,10 @@ body{
 }
 
 .filter-buttons button{
-    height:32px;
+    height:33px;
     border:0;
-    border-radius:6px;
-    padding:0 11px;
+    border-radius:7px;
+    padding:0 12px;
     font-size:9px;
     font-weight:800;
     cursor:pointer;
@@ -164,6 +170,7 @@ body{
 
 .reset{
     background:#e5e7eb;
+    color:#111827;
 }
 
 /* KPI */
@@ -171,16 +178,16 @@ body{
 .kpis{
     display:grid;
     grid-template-columns:repeat(8,1fr);
-    gap:7px;
-    margin-bottom:10px;
+    gap:8px;
+    margin-bottom:12px;
 }
 
 .kpi{
-    min-height:82px;
-    border-radius:11px;
-    padding:11px;
+    min-height:86px;
+    border-radius:12px;
+    padding:12px;
     color:white;
-    box-shadow:0 5px 16px rgba(0,0,0,.12);
+    box-shadow:0 6px 18px rgba(0,0,0,.13);
 }
 
 .kpi:nth-child(1){
@@ -219,13 +226,13 @@ body{
 .kpi-title{
     font-size:8px;
     font-weight:800;
-    opacity:.9;
+    opacity:.92;
 }
 
 .kpi-value{
     font-size:17px;
     font-weight:800;
-    margin-top:8px;
+    margin-top:9px;
 }
 
 /* CHARTS */
@@ -233,15 +240,15 @@ body{
 .chart-grid{
     display:grid;
     grid-template-columns:1.4fr 1fr;
-    gap:10px;
-    margin-bottom:10px;
+    gap:11px;
+    margin-bottom:11px;
 }
 
 .chart-card{
-    background:rgba(255,255,255,.96);
-    border-radius:12px;
-    padding:10px;
-    box-shadow:0 4px 16px rgba(0,0,0,.09);
+    background:rgba(255,255,255,.97);
+    border-radius:13px;
+    padding:11px;
+    box-shadow:0 5px 18px rgba(0,0,0,.09);
 }
 
 .chart-title{
@@ -251,16 +258,16 @@ body{
 }
 
 .chart{
-    height:245px;
+    height:250px;
 }
 
 /* TABLE */
 
 .table-card{
     background:white;
-    border-radius:12px;
-    padding:11px;
-    box-shadow:0 4px 16px rgba(0,0,0,.09);
+    border-radius:13px;
+    padding:12px;
+    box-shadow:0 5px 18px rgba(0,0,0,.09);
 }
 
 .table-header{
@@ -282,7 +289,7 @@ body{
 
 .table-wrapper{
     overflow:auto;
-    max-height:380px;
+    max-height:400px;
 }
 
 table{
@@ -306,6 +313,10 @@ td{
     font-size:8px;
     border-bottom:1px solid #e5e7eb;
     white-space:nowrap;
+}
+
+tr:hover td{
+    background:#fffbeb;
 }
 
 .paid{
@@ -344,10 +355,6 @@ td{
     .filters{
         grid-template-columns:1fr 1fr;
     }
-
-    .page-title{
-        display:block;
-    }
 }
 
 @media(max-width:500px){
@@ -373,222 +380,206 @@ td{
     }
 }
 </style>
+
 </head>
 
 <body>
 
 <header class="header">
 
-    <div class="logo">
-        <span>GEM'S GOLD</span>
-        <small>SALES & BUSINESS DASHBOARD</small>
-    </div>
+```
+<div class="logo">
+    <span>GEM'S GOLD</span>
+    <small>SALES & BUSINESS DASHBOARD</small>
+</div>
 
-    <button class="refresh" onclick="loadData()">
-        ↻ REFRESH
-    </button>
+<button class="refresh" onclick="loadData()">
+    ↻ REFRESH
+</button>
+```
 
 </header>
 
 <main class="main">
 
-    <div class="page-title">
-        <div>
-            <h1>Sales Overview</h1>
-            <p>Google Sheet connected dashboard</p>
-        </div>
+```
+<div class="page-title">
+    <h1>Sales Overview</h1>
+    <p>Google Sheet connected dashboard</p>
+</div>
+
+<div id="status" class="status">
+    Loading sales data...
+</div>
+
+<div id="error" class="status error"></div>
+
+<div class="filters">
+
+    <div class="filter">
+        <label>FROM DATE</label>
+        <input type="date" id="fromDate">
     </div>
 
-    <div id="status" class="status">
-        Loading sales data...
+    <div class="filter">
+        <label>TO DATE</label>
+        <input type="date" id="toDate">
     </div>
 
-    <div id="error" class="status error"></div>
-
-    <!-- FILTERS -->
-
-    <div class="filters">
-
-        <div class="filter">
-            <label>FROM DATE</label>
-            <input type="date" id="fromDate">
-        </div>
-
-        <div class="filter">
-            <label>TO DATE</label>
-            <input type="date" id="toDate">
-        </div>
-
-        <div class="filter">
-            <label>PLATFORM</label>
-            <select id="platform">
-                <option value="">All Platforms</option>
-            </select>
-        </div>
-
-        <div class="filter">
-            <label>BRAND</label>
-            <select id="brand">
-                <option value="">All Brands</option>
-            </select>
-        </div>
-
-        <div class="filter">
-            <label>PRODUCT</label>
-            <select id="product">
-                <option value="">All Products</option>
-            </select>
-        </div>
-
-        <div class="filter-buttons">
-            <button class="apply" onclick="applyFilters()">APPLY</button>
-            <button class="reset" onclick="resetFilters()">RESET</button>
-        </div>
-
+    <div class="filter">
+        <label>PLATFORM</label>
+        <select id="platform">
+            <option value="">All Platforms</option>
+        </select>
     </div>
 
-    <!-- KPI -->
-
-    <div class="kpis">
-
-        <div class="kpi">
-            <div class="kpi-title">TOTAL SALES</div>
-            <div class="kpi-value" id="totalSales">₹0</div>
-        </div>
-
-        <div class="kpi">
-            <div class="kpi-title">TOTAL ORDERS</div>
-            <div class="kpi-value" id="totalOrders">0</div>
-        </div>
-
-        <div class="kpi">
-            <div class="kpi-title">TOTAL QTY</div>
-            <div class="kpi-value" id="totalQty">0</div>
-        </div>
-
-        <div class="kpi">
-            <div class="kpi-title">TOTAL REFUND</div>
-            <div class="kpi-value" id="totalRefund">₹0</div>
-        </div>
-
-        <div class="kpi">
-            <div class="kpi-title">NET SALES</div>
-            <div class="kpi-value" id="netSales">₹0</div>
-        </div>
-
-        <div class="kpi">
-            <div class="kpi-title">AVG ORDER VALUE</div>
-            <div class="kpi-value" id="avgOrder">₹0</div>
-        </div>
-
-        <div class="kpi">
-            <div class="kpi-title">PAID ORDERS</div>
-            <div class="kpi-value" id="paidOrders">0</div>
-        </div>
-
-        <div class="kpi">
-            <div class="kpi-title">REFUNDED ORDERS</div>
-            <div class="kpi-value" id="refundedOrders">0</div>
-        </div>
-
+    <div class="filter">
+        <label>BRAND</label>
+        <select id="brand">
+            <option value="">All Brands</option>
+        </select>
     </div>
 
-    <!-- SALES + PRODUCTS -->
-
-    <div class="chart-grid">
-
-        <div class="chart-card">
-            <div class="chart-title">📈 Sales Trend</div>
-            <div id="salesChart" class="chart"></div>
-        </div>
-
-        <div class="chart-card">
-            <div class="chart-title">🏆 Top 5 Products</div>
-            <div id="productChart" class="chart"></div>
-        </div>
-
+    <div class="filter">
+        <label>PRODUCT</label>
+        <select id="product">
+            <option value="">All Products</option>
+        </select>
     </div>
 
-    <!-- CITY + PLATFORM -->
-
-    <div class="chart-grid">
-
-        <div class="chart-card">
-            <div class="chart-title">🏙️ Location-wise Sales</div>
-            <div id="cityChart" class="chart"></div>
-        </div>
-
-        <div class="chart-card">
-            <div class="chart-title">🌐 Platform-wise Sales</div>
-            <div id="platformChart" class="chart"></div>
-        </div>
-
+    <div class="filter-buttons">
+        <button class="apply" onclick="applyFilters()">APPLY</button>
+        <button class="reset" onclick="resetFilters()">RESET</button>
     </div>
 
-    <!-- TABLE -->
+</div>
 
-    <div class="table-card">
+<div class="kpis">
 
-        <div class="table-header">
+    <div class="kpi">
+        <div class="kpi-title">TOTAL SALES</div>
+        <div class="kpi-value" id="totalSales">₹0</div>
+    </div>
 
-            <div class="table-title">
-                📋 Recent Orders
-            </div>
+    <div class="kpi">
+        <div class="kpi-title">TOTAL ORDERS</div>
+        <div class="kpi-value" id="totalOrders">0</div>
+    </div>
 
-            <div class="table-count" id="tableCount">
-                0 orders
-            </div>
+    <div class="kpi">
+        <div class="kpi-title">TOTAL QTY</div>
+        <div class="kpi-value" id="totalQty">0</div>
+    </div>
 
+    <div class="kpi">
+        <div class="kpi-title">TOTAL REFUND</div>
+        <div class="kpi-value" id="totalRefund">₹0</div>
+    </div>
+
+    <div class="kpi">
+        <div class="kpi-title">NET SALES</div>
+        <div class="kpi-value" id="netSales">₹0</div>
+    </div>
+
+    <div class="kpi">
+        <div class="kpi-title">AVG ORDER VALUE</div>
+        <div class="kpi-value" id="avgOrder">₹0</div>
+    </div>
+
+    <div class="kpi">
+        <div class="kpi-title">PAID ORDERS</div>
+        <div class="kpi-value" id="paidOrders">0</div>
+    </div>
+
+    <div class="kpi">
+        <div class="kpi-title">REFUNDED ORDERS</div>
+        <div class="kpi-value" id="refundedOrders">0</div>
+    </div>
+
+</div>
+
+<div class="chart-grid">
+
+    <div class="chart-card">
+        <div class="chart-title">📈 Sales Trend</div>
+        <div id="salesChart" class="chart"></div>
+    </div>
+
+    <div class="chart-card">
+        <div class="chart-title">🏆 Top 5 Products</div>
+        <div id="productChart" class="chart"></div>
+    </div>
+
+</div>
+
+<div class="chart-grid">
+
+    <div class="chart-card">
+        <div class="chart-title">🏙️ Location-wise Sales</div>
+        <div id="cityChart" class="chart"></div>
+    </div>
+
+    <div class="chart-card">
+        <div class="chart-title">🌐 Platform-wise Sales</div>
+        <div id="platformChart" class="chart"></div>
+    </div>
+
+</div>
+
+<div class="table-card">
+
+    <div class="table-header">
+
+        <div class="table-title">
+            📋 Recent Orders
         </div>
 
-        <div class="table-wrapper">
-
-            <table>
-
-                <thead>
-
-                    <tr>
-                        <th>ORDER ID</th>
-                        <th>ORDER DATE</th>
-                        <th>CUSTOMER</th>
-                        <th>LOCATION</th>
-                        <th>PLATFORM</th>
-                        <th>PRODUCT</th>
-                        <th>QTY</th>
-                        <th>VALUE</th>
-                        <th>STATUS</th>
-                        <th>REFUND</th>
-                    </tr>
-
-                </thead>
-
-                <tbody id="ordersTable"></tbody>
-
-            </table>
-
+        <div class="table-count" id="tableCount">
+            0 orders
         </div>
 
     </div>
+
+    <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>ORDER ID</th>
+                    <th>ORDER DATE</th>
+                    <th>CUSTOMER</th>
+                    <th>LOCATION</th>
+                    <th>PLATFORM</th>
+                    <th>PRODUCT</th>
+                    <th>QTY</th>
+                    <th>VALUE</th>
+                    <th>STATUS</th>
+                    <th>REFUND</th>
+                </tr>
+            </thead>
+
+            <tbody id="ordersTable"></tbody>
+
+        </table>
+
+    </div>
+
+</div>
+```
 
 </main>
 
 <script>
 
-/* ==========================================================
-   GOOGLE SHEET
-========================================================== */
-
 const CSV_URL =
 "https://docs.google.com/spreadsheets/d/e/2PACX-1vS4QW5KFM7cbNC4lcPBrlNk-kcKQIKz5lg3gKTl48CZUyMR0n3PeU5nG7_WlYKmz2mnS6_d5JNnkQbz/pub?gid=0&single=true&output=csv";
-
 
 let allData=[];
 let filteredData=[];
 
 
-/* ==========================================================
-   CSV PARSER
-========================================================== */
+/* CSV PARSER */
 
 function parseCSV(text){
 
@@ -604,14 +595,10 @@ function parseCSV(text){
         if(c==='"'){
 
             if(quote && text[i+1]==='"'){
-
                 value+='"';
                 i++;
-
             }else{
-
                 quote=!quote;
-
             }
 
         }else if(c===',' && !quote){
@@ -643,99 +630,69 @@ function parseCSV(text){
     }
 
     if(value || row.length){
-
         row.push(value);
         rows.push(row);
-
     }
 
     return rows;
 }
 
 
-/* ==========================================================
-   LOAD DATA
-========================================================== */
+/* LOAD DATA */
 
 async function loadData(){
 
-    const status=
-    document.getElementById("status");
-
-    const error=
-    document.getElementById("error");
+    const status=document.getElementById("status");
+    const error=document.getElementById("error");
 
     status.style.display="block";
     error.style.display="none";
-
-    status.textContent=
-    "Loading Google Sheet data...";
+    status.textContent="Loading Google Sheet data...";
 
     try{
 
-        const response=
-        await fetch(
+        const response=await fetch(
             CSV_URL+"&cache="+Date.now()
         );
 
         if(!response.ok){
-
-            throw new Error(
-                "Unable to access Google Sheet."
-            );
-
+            throw new Error("Unable to access Google Sheet.");
         }
 
-        const text=
-        await response.text();
-
-        const rows=
-        parseCSV(text);
+        const text=await response.text();
+        const rows=parseCSV(text);
 
         if(rows.length<2){
-
-            throw new Error(
-                "No sales data found."
-            );
-
+            throw new Error("No sales data found.");
         }
 
-        const headers=
-        rows[0].map(
+        const headers=rows[0].map(
             h=>h.trim().replace(/^\uFEFF/,"")
         );
 
-        allData=
-        rows.slice(1)
+        allData=rows.slice(1)
         .map(row=>{
 
             const obj={};
 
-            headers.forEach(
-                (header,i)=>{
-                    obj[header]=
-                    (row[i]||"").trim();
-                }
-            );
+            headers.forEach((header,i)=>{
+                obj[header]=(row[i]||"").trim();
+            });
 
             return obj;
 
         })
-        .filter(
-            row=>row["ORDER ID"]
-        );
+        .filter(row=>row["ORDER ID"]);
 
-        filteredData=
-        [...allData];
+        filteredData=[...allData];
 
         populateFilters();
-
         updateDashboard();
 
         status.textContent=
-        "✓ Connected • "+
-        allData.length+
-        " product rows loaded";
+            "✓ Connected • "+
+            allData.length+
+            " product rows loaded";
 
     }
 
@@ -744,22 +701,19 @@ async function loadData(){
         console.error(err);
 
         status.style.display="none";
-
         error.style.display="block";
 
         error.innerHTML=
-        "❌ "+err.message+
-        "<br><br>"+
-        "Please make sure the Google Sheet is published as CSV.";
+            "❌ "+err.message+
+            "<br><br>"+
+            "Please make sure the Google Sheet is published as CSV.";
 
     }
 
 }
 
 
-/* ==========================================================
-   NUMBER
-========================================================== */
+/* NUMBER */
 
 function number(value){
 
@@ -777,22 +731,18 @@ function number(value){
 }
 
 
-/* ==========================================================
-   MONEY
-========================================================== */
+/* MONEY */
 
 function money(value){
 
     return "₹"+
-    Math.round(value)
-    .toLocaleString("en-IN");
+        Math.round(value)
+        .toLocaleString("en-IN");
 
 }
 
 
-/* ==========================================================
-   UNIQUE ORDERS
-========================================================== */
+/* UNIQUE ORDERS */
 
 function uniqueOrders(data){
 
@@ -800,15 +750,9 @@ function uniqueOrders(data){
 
     data.forEach(row=>{
 
-        const id=
-        String(row["ORDER ID"]||"").trim();
+        const id=String(row["ORDER ID"]||"").trim();
 
         if(!id) return;
-
-        /*
-          The same order can have multiple product rows.
-          We count the order only once.
-        */
 
         if(!map.has(id)){
 
@@ -830,56 +774,37 @@ function uniqueOrders(data){
 }
 
 
-/* ==========================================================
-   FILTER OPTIONS
-========================================================== */
+/* FILTER OPTIONS */
 
 function populateFilters(){
 
-    createOptions(
-        "platform",
-        "PLATFORM"
-    );
-
-    createOptions(
-        "brand",
-        "BRAND"
-    );
-
-    createOptions(
-        "product",
-        "PRODUCT"
-    );
+    createOptions("platform","PLATFORM");
+    createOptions("brand","BRAND");
+    createOptions("product","PRODUCT");
 
 }
 
 
-function createOptions(
-    selectId,
-    column
-){
+function createOptions(selectId,column){
 
-    const select=
-    document.getElementById(selectId);
+    const select=document.getElementById(selectId);
 
-    const first=
-    select.options[0];
+    const first=select.options[0];
 
     select.innerHTML="";
-
     select.appendChild(first);
 
-    const values=
-    [...new Set(
-        allData
-        .map(row=>row[column])
-        .filter(Boolean)
-    )].sort();
+    const values=[
+        ...new Set(
+            allData
+            .map(row=>row[column])
+            .filter(Boolean)
+        )
+    ].sort();
 
     values.forEach(value=>{
 
-        const option=
-        document.createElement("option");
+        const option=document.createElement("option");
 
         option.value=value;
         option.textContent=value;
@@ -891,96 +816,58 @@ function createOptions(
 }
 
 
-/* ==========================================================
-   FILTER
-========================================================== */
+/* FILTER */
 
 function applyFilters(){
 
-    const from=
-    document.getElementById("fromDate").value;
+    const from=document.getElementById("fromDate").value;
+    const to=document.getElementById("toDate").value;
+    const platform=document.getElementById("platform").value;
+    const brand=document.getElementById("brand").value;
+    const product=document.getElementById("product").value;
 
-    const to=
-    document.getElementById("toDate").value;
+    filteredData=allData.filter(row=>{
 
-    const platform=
-    document.getElementById("platform").value;
-
-    const brand=
-    document.getElementById("brand").value;
-
-    const product=
-    document.getElementById("product").value;
-
-
-    filteredData=
-    allData.filter(row=>{
-
-        const date=
-        new Date(row["ORDER DATE"]);
-
+        const date=new Date(row["ORDER DATE"]);
 
         if(from){
 
-            const start=
-            new Date(from+"T00:00:00");
+            const start=new Date(from+"T00:00:00");
 
-            if(date<start){
-                return false;
-            }
+            if(date<start) return false;
 
         }
-
 
         if(to){
 
-            const end=
-            new Date(to+"T23:59:59");
+            const end=new Date(to+"T23:59:59");
 
-            if(date>end){
-                return false;
-            }
+            if(date>end) return false;
 
         }
 
-
-        if(
-            platform &&
-            row["PLATFORM"]!==platform
-        ){
+        if(platform && row["PLATFORM"]!==platform){
             return false;
         }
 
-
-        if(
-            brand &&
-            row["BRAND"]!==brand
-        ){
+        if(brand && row["BRAND"]!==brand){
             return false;
         }
 
-
-        if(
-            product &&
-            row["PRODUCT"]!==product
-        ){
+        if(product && row["PRODUCT"]!==product){
             return false;
         }
-
 
         return true;
 
     });
-
 
     updateDashboard();
 
 }
 
 
-/* ==========================================================
-   RESET
-========================================================== */
+/* RESET */
 
 function resetFilters(){
 
@@ -990,159 +877,90 @@ function resetFilters(){
     document.getElementById("brand").value="";
     document.getElementById("product").value="";
 
-    filteredData=
-    [...allData];
+    filteredData=[...allData];
 
     updateDashboard();
 
 }
 
 
-/* ==========================================================
-   UPDATE
-========================================================== */
+/* UPDATE */
 
 function updateDashboard(){
 
     updateKPIs();
-
     updateCharts();
-
     updateTable();
 
 }
 
 
-/* ==========================================================
-   KPI
-========================================================== */
+/* KPI */
 
 function updateKPIs(){
 
-    const orders=
-    uniqueOrders(filteredData);
-
+    const orders=uniqueOrders(filteredData);
 
     let sales=0;
     let refunds=0;
     let qty=0;
 
-
-    /*
-      Sales and refund are counted once per order.
-      Quantity is counted from every product row.
-    */
-
     orders.forEach(order=>{
 
-        sales+=
-        number(order.rows[0]["VALUE"]);
-
-        refunds+=
-        number(order.rows[0]["REFUND AMOUNT"]);
+        sales+=number(order.rows[0]["VALUE"]);
+        refunds+=number(order.rows[0]["REFUND AMOUNT"]);
 
     });
-
 
     filteredData.forEach(row=>{
-
-        qty+=
-        number(row["QTY"]);
-
+        qty+=number(row["QTY"]);
     });
 
-
-    const orderCount=
-    orders.size;
-
-    const net=
-    sales-refunds;
-
-    const average=
-    orderCount
-    ? sales/orderCount
-    : 0;
-
+    const orderCount=orders.size;
+    const net=sales-refunds;
+    const average=orderCount ? sales/orderCount : 0;
 
     let paid=0;
     let refunded=0;
 
-
     orders.forEach(order=>{
 
-        const status=
-        String(
+        const status=String(
             order.rows[0]["FINANCIAL STATUS"]||""
         ).toLowerCase();
 
-        if(status==="paid"){
-            paid++;
-        }
-
-        if(status==="refunded"){
-            refunded++;
-        }
+        if(status==="paid") paid++;
+        if(status==="refunded") refunded++;
 
     });
 
-
-    document.getElementById("totalSales")
-        .textContent=money(sales);
-
-    document.getElementById("totalOrders")
-        .textContent=
-        orderCount.toLocaleString("en-IN");
-
-    document.getElementById("totalQty")
-        .textContent=
-        qty.toLocaleString("en-IN");
-
-    document.getElementById("totalRefund")
-        .textContent=
-        money(refunds);
-
-    document.getElementById("netSales")
-        .textContent=
-        money(net);
-
-    document.getElementById("avgOrder")
-        .textContent=
-        money(average);
-
-    document.getElementById("paidOrders")
-        .textContent=paid;
-
-    document.getElementById("refundedOrders")
-        .textContent=refunded;
+    document.getElementById("totalSales").textContent=money(sales);
+    document.getElementById("totalOrders").textContent=orderCount.toLocaleString("en-IN");
+    document.getElementById("totalQty").textContent=qty.toLocaleString("en-IN");
+    document.getElementById("totalRefund").textContent=money(refunds);
+    document.getElementById("netSales").textContent=money(net);
+    document.getElementById("avgOrder").textContent=money(average);
+    document.getElementById("paidOrders").textContent=paid.toLocaleString("en-IN");
+    document.getElementById("refundedOrders").textContent=refunded.toLocaleString("en-IN");
 
 }
 
 
-/* ==========================================================
-   GROUP SALES
-========================================================== */
+/* GROUP SALES */
 
 function groupSales(column){
 
     const result={};
 
-    filteredData.forEach(row=>{
+    uniqueOrders(filteredData).forEach(order=>{
 
-        const key=
-        row[column] || "Unknown";
+        const key=order.rows[0][column] || "Unknown";
 
         if(!result[key]){
             result[key]=0;
         }
 
-        /*
-          For charts using product rows, VALUE may be blank
-          on additional rows. This prevents accidental
-          double-counting.
-        */
-
-        result[key]+=
-        number(row["VALUE"]);
+        result[key]+=number(order.rows[0]["VALUE"]);
 
     });
 
@@ -1151,28 +969,21 @@ function groupSales(column){
 }
 
 
-/* ==========================================================
-   SALES BY DATE
-========================================================== */
+/* SALES BY DATE */
 
 function salesByDate(){
 
     const result={};
 
-    uniqueOrders(
-        filteredData
-    ).forEach(order=>{
+    uniqueOrders(filteredData).forEach(order=>{
 
-        const date=
-        order.rows[0]["ORDER DATE"] ||
-        "Unknown";
+        const date=order.rows[0]["ORDER DATE"] || "Unknown";
 
         if(!result[date]){
             result[date]=0;
         }
 
-        result[date]+=
-        number(order.rows[0]["VALUE"]);
+        result[date]+=number(order.rows[0]["VALUE"]);
 
     });
 
@@ -1181,451 +992,320 @@ function salesByDate(){
 }
 
 
-/* ==========================================================
-   DRAW CHART
-========================================================== */
+/* DRAW CHART */
 
-function drawChart(
-    selector,
-    options
-){
+function drawChart(selector,options){
 
-    const element=
-    document.querySelector(selector);
+    const element=document.querySelector(selector);
 
     element.innerHTML="";
 
-    const c=
-    new ApexCharts(
-        element,
-        options
-    );
+    const chart=new ApexCharts(element,options);
 
-    c.render();
+    chart.render();
 
 }
 
 
-/* ==========================================================
-   CHARTS
-========================================================== */
+/* CHARTS */
 
 function updateCharts(){
 
     /* SALES TREND */
 
-    const dateData=
-    salesByDate();
+    const dateData=salesByDate();
 
-    const dates=
-    Object.keys(dateData)
-    .sort(
-        (a,b)=>
-        new Date(a)-new Date(b)
+    const dates=Object.keys(dateData).sort(
+        (a,b)=>new Date(a)-new Date(b)
     );
 
+    drawChart("#salesChart",{
 
-    drawChart(
-        "#salesChart",
-        {
+        series:[{
+            name:"Sales",
+            data:dates.map(d=>dateData[d])
+        }],
 
-            series:[{
+        chart:{
+            type:"area",
+            height:250,
+            toolbar:{show:false}
+        },
 
-                name:"Sales",
+        colors:["#b8860b"],
 
-                data:
-                dates.map(
-                    d=>dateData[d]
-                )
+        stroke:{
+            curve:"smooth",
+            width:3
+        },
 
-            }],
+        fill:{
+            opacity:.25
+        },
 
-            chart:{
-                type:"area",
-                height:245,
-                toolbar:{
-                    show:false
-                }
-            },
+        dataLabels:{
+            enabled:false
+        },
 
-            colors:["#b8860b"],
-
-            stroke:{
-                curve:"smooth",
-                width:3
-            },
-
-            fill:{
-                opacity:.25
-            },
-
-            dataLabels:{
-                enabled:false
-            },
-
-            xaxis:{
-                categories:dates,
-                labels:{
-                    rotate:-45,
-                    style:{
-                        fontSize:"8px"
-                    }
-                }
-            },
-
-            yaxis:{
-                labels:{
-                    formatter:
-                    value=>
-                    "₹"+
-                    Math.round(value)
-                    .toLocaleString("en-IN")
-                }
-            },
-
-            tooltip:{
-                y:{
-                    formatter:
-                    value=>money(value)
-                }
+        xaxis:{
+            categories:dates,
+            labels:{
+                rotate:-45,
+                style:{fontSize:"8px"}
             }
+        },
 
+        yaxis:{
+            labels:{
+                formatter:value=>
+                    "₹"+Math.round(value).toLocaleString("en-IN")
+            }
+        },
+
+        tooltip:{
+            y:{
+                formatter:value=>money(value)
+            }
         }
-    );
+
+    });
 
 
     /* TOP PRODUCTS */
 
     const products={};
 
-
     filteredData.forEach(row=>{
 
-        const product=
-        row["PRODUCT"]||
-        "Unknown";
+        const product=row["PRODUCT"]||"Unknown";
 
         if(!products[product]){
             products[product]=0;
         }
 
-        /*
-          Use row VALUE where available.
-          If VALUE is blank, use quantity × unit value
-          only when a numeric unit value exists.
-        */
-
-        products[product]+=
-        number(row["VALUE"]);
+        products[product]+=number(row["VALUE"]);
 
     });
 
+    const topProducts=Object.entries(products)
+        .sort((a,b)=>b[1]-a[1])
+        .slice(0,5);
 
-    const topProducts=
-    Object.entries(products)
-    .sort(
-        (a,b)=>b[1]-a[1]
-    )
-    .slice(0,5);
+    drawChart("#productChart",{
 
+        series:[{
+            name:"Sales",
+            data:topProducts.map(x=>x[1])
+        }],
 
-    drawChart(
-        "#productChart",
-        {
+        chart:{
+            type:"bar",
+            height:250,
+            toolbar:{show:false}
+        },
 
-            series:[{
+        colors:[
+            "#b8860b",
+            "#2563eb",
+            "#16a34a",
+            "#db2777",
+            "#7c3aed"
+        ],
 
-                name:"Sales",
-
-                data:
-                topProducts.map(
-                    x=>x[1]
-                )
-
-            }],
-
-            chart:{
-                type:"bar",
-                height:245,
-                toolbar:{
-                    show:false
-                }
-            },
-
-            colors:[
-                "#b8860b",
-                "#2563eb",
-                "#16a34a",
-                "#db2777",
-                "#7c3aed"
-            ],
-
-            plotOptions:{
-                bar:{
-                    horizontal:true,
-                    distributed:true,
-                    borderRadius:5,
-                    barHeight:"65%"
-                }
-            },
-
-            dataLabels:{
-                enabled:false
-            },
-
-            xaxis:{
-                categories:
-                topProducts.map(
-                    x=>x[0]
-                )
-            },
-
-            tooltip:{
-                y:{
-                    formatter:
-                    value=>money(value)
-                }
+        plotOptions:{
+            bar:{
+                horizontal:true,
+                distributed:true,
+                borderRadius:5,
+                barHeight:"65%"
             }
+        },
 
+        dataLabels:{
+            enabled:false
+        },
+
+        xaxis:{
+            categories:topProducts.map(x=>x[0])
+        },
+
+        tooltip:{
+            y:{
+                formatter:value=>money(value)
+            }
         }
-    );
+
+    });
 
 
     /* LOCATION */
 
-    const locations=
-    groupSales("LOCATION");
+    const locations=groupSales("LOCATION");
 
+    const topLocations=Object.entries(locations)
+        .sort((a,b)=>b[1]-a[1])
+        .slice(0,8);
 
-    const topLocations=
-    Object.entries(locations)
-    .sort(
-        (a,b)=>b[1]-a[1]
-    )
-    .slice(0,8);
+    drawChart("#cityChart",{
 
+        series:[{
+            name:"Sales",
+            data:topLocations.map(x=>x[1])
+        }],
 
-    drawChart(
-        "#cityChart",
-        {
+        chart:{
+            type:"bar",
+            height:250,
+            toolbar:{show:false}
+        },
 
-            series:[{
+        colors:["#0891b2"],
 
-                name:"Sales",
-
-                data:
-                topLocations.map(
-                    x=>x[1]
-                )
-
-            }],
-
-            chart:{
-                type:"bar",
-                height:245,
-                toolbar:{
-                    show:false
-                }
-            },
-
-            colors:["#0891b2"],
-
-            plotOptions:{
-                bar:{
-                    horizontal:true,
-                    borderRadius:5
-                }
-            },
-
-            dataLabels:{
-                enabled:false
-            },
-
-            xaxis:{
-                categories:
-                topLocations.map(
-                    x=>x[0]
-                )
-            },
-
-            tooltip:{
-                y:{
-                    formatter:
-                    value=>money(value)
-                }
+        plotOptions:{
+            bar:{
+                horizontal:true,
+                borderRadius:5
             }
+        },
 
-        }
-    );
+        dataLabels:{
+            enabled:false
+        },
 
+        xaxis:{
+            categories:topLocations.map(x=>x[0])
+        },
 
-    /* PLATFORM */
-
-    const platforms=
-    groupSales("PLATFORM");
-
-
-    drawChart(
-        "#platformChart",
-        {
-
-            series:
-            Object.values(platforms),
-
-            labels:
-            Object.keys(platforms),
-
-            chart:{
-                type:"donut",
-                height:245
-            },
-
-            colors:[
-                "#b8860b",
-                "#2563eb",
-                "#16a34a",
-                "#db2777",
-                "#7c3aed",
-                "#0891b2"
-            ],
-
-            legend:{
-                position:"bottom",
-                fontSize:"9px"
-            },
-
-            tooltip:{
-                y:{
-                    formatter:
-                    value=>money(value)
-                }
+        tooltip:{
+            y:{
+                formatter:value=>money(value)
             }
-
         }
-    );
-
-}
-
-
-/* ==========================================================
-   TABLE
-========================================================== */
-
-function updateTable(){
-
-    const tbody=
-    document.getElementById(
-        "ordersTable"
-    );
-
-    tbody.innerHTML="";
-
-
-    /*
-      Show the latest product rows.
-    */
-
-    filteredData
-    .slice()
-    .reverse()
-    .slice(0,100)
-    .forEach(row=>{
-
-        const tr=
-        document.createElement("tr");
-
-
-        const status=
-        row["FINANCIAL STATUS"]||"";
-
-
-        let className="";
-
-
-        if(
-            status.toLowerCase()==="paid"
-        ){
-            className="paid";
-        }
-
-
-        if(
-            status.toLowerCase()==="refunded"
-        ){
-            className="refunded";
-        }
-
-
-        tr.innerHTML=`
-
-            <td>${safe(row["ORDER ID"])}</td>
-
-            <td>${safe(row["ORDER DATE"])}</td>
-
-            <td>${safe(row["CUSTOMER NAME"])}</td>
-
-            <td>${safe(row["LOCATION"])}</td>
-
-            <td>${safe(row["PLATFORM"])}</td>
-
-            <td>${safe(row["PRODUCT"])}</td>
-
-            <td>${safe(row["QTY"])}</td>
-
-            <td>${money(
-                number(row["VALUE"])
-            )}</td>
-
-            <td class="${className}">
-                ${safe(status)}
-            </td>
-
-            <td>${money(
-                number(
-                    row["REFUND AMOUNT"]
-                )
-            )}</td>
-
-        `;
-
-
-        tbody.appendChild(tr);
 
     });
 
 
-    const unique=
-    uniqueOrders(
-        filteredData
-    ).size;
+    /* PLATFORM */
+
+    const platforms=groupSales("PLATFORM");
+
+    drawChart("#platformChart",{
+
+        series:Object.values(platforms),
+
+        labels:Object.keys(platforms),
+
+        chart:{
+            type:"donut",
+            height:250
+        },
+
+        colors:[
+            "#b8860b",
+            "#2563eb",
+            "#16a34a",
+            "#db2777",
+            "#7c3aed",
+            "#0891b2"
+        ],
+
+        legend:{
+            position:"bottom",
+            fontSize:"9px"
+        },
+
+        tooltip:{
+            y:{
+                formatter:value=>money(value)
+            }
+        }
+
+    });
+
+}
 
 
-    document.getElementById("tableCount")
-        .textContent=
+/* TABLE */
+
+function updateTable(){
+
+    const tbody=document.getElementById("ordersTable");
+
+    tbody.innerHTML="";
+
+    filteredData
+        .slice()
+        .reverse()
+        .slice(0,100)
+        .forEach(row=>{
+
+            const tr=document.createElement("tr");
+
+            const status=row["FINANCIAL STATUS"]||"";
+
+            let className="";
+
+            if(status.toLowerCase()==="paid"){
+                className="paid";
+            }
+
+            if(status.toLowerCase()==="refunded"){
+                className="refunded";
+            }
+
+            tr.innerHTML=`
+
+                <td>${safe(row["ORDER ID"])}</td>
+
+                <td>${safe(row["ORDER DATE"])}</td>
+
+                <td>${safe(row["CUSTOMER NAME"])}</td>
+
+                <td>${safe(row["LOCATION"])}</td>
+
+                <td>${safe(row["PLATFORM"])}</td>
+
+                <td>${safe(row["PRODUCT"])}</td>
+
+                <td>${safe(row["QTY"])}</td>
+
+                <td>${money(number(row["VALUE"]))}</td>
+
+                <td class="${className}">
+                    ${safe(status)}
+                </td>
+
+                <td>${money(number(row["REFUND AMOUNT"]))}</td>
+
+            `;
+
+            tbody.appendChild(tr);
+
+        });
+
+    const unique=uniqueOrders(filteredData).size;
+
+    document.getElementById("tableCount").textContent=
         unique.toLocaleString("en-IN")+
         " unique orders";
 
 }
 
 
-/* ==========================================================
-   SAFE TEXT
-========================================================== */
+/* SAFE TEXT */
 
 function safe(value){
 
     return String(value||"")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;");
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;");
 
 }
 
 
-/* ==========================================================
-   START
-========================================================== */
+/* START */
 
 loadData();
 
@@ -1633,4 +1313,3 @@ loadData();
 
 </body>
 </html>
-```
